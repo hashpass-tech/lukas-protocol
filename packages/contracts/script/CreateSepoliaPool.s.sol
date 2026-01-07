@@ -3,6 +3,7 @@ pragma solidity ^0.8.24;
 
 import "forge-std/Script.sol";
 import {IPoolManager} from "v4-core/src/interfaces/IPoolManager.sol";
+import {IHooks} from "v4-core/src/interfaces/IHooks.sol";
 import {PoolKey} from "v4-core/src/types/PoolKey.sol";
 import {Currency} from "v4-core/src/types/Currency.sol";
 import {TickMath} from "v4-core/src/libraries/TickMath.sol";
@@ -87,12 +88,12 @@ contract CreateSepoliaPool is Script {
         // Log pool details for reference
         console.log("");
         console.log("=== Pool Details ===");
-        console.log("Token0:", token0);
-        console.log("Token1:", token1);
-        console.log("Fee:", 3000, "(0.3%)");
-        console.log("Tick Spacing:", 60);
-        console.log("Initial Tick:", tick);
-        console.log("sqrtPriceX96:", sqrtPriceX96);
+        console.logAddress(token0);
+        console.logAddress(token1);
+        console.log("Fee: 3000 (0.3%)");
+        console.log("Tick Spacing: 60");
+        console.logInt(tick);
+        console.logUint(sqrtPriceX96);
         console.log("");
         console.log("Next steps:");
         console.log("1. Approve tokens to PoolManager");

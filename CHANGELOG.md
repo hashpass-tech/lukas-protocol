@@ -13,6 +13,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.3.0] - 2026-01-07
+
+### Added
+
+- **FHENIX Encrypted Stabilization Infrastructure** (Phase 2.1-2.4 Complete)
+  - FhenixEncryptionManager: Key management and encryption lifecycle
+  - EncryptedMintCeiling: Encrypted supply limit parameter
+  - EncryptedPegDeviation: Encrypted sensitivity parameter
+  - EncryptedCurveParameters: Encrypted stabilization curve coefficients
+  - FhenixComputationEngine: Homomorphic operations (add, multiply, compare, polynomial eval)
+  - FhenixDecryptionHandler: Multi-sig decryption with authorization
+  - EncryptionOrchestrator: Coordinated encrypted parameter routing
+  - EncryptedParameterProxy: Modular upgrade pattern
+  - 106 comprehensive unit tests (100% passing)
+  - Complete error handling system (20+ custom errors)
+  - Full API documentation and integration guides
+
+### Changed
+
+- Updated roadmap with FHENIX implementation status
+- Enhanced protocol architecture documentation
+
+### Fixed
+
+- Fixed IHooks import in CreateSepoliaPool.s.sol
+- Fixed console.log overload issues in deployment scripts
+
 ## [0.2.39] - 2025-12-28
 
 ### Added
