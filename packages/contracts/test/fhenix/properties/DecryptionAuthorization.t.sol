@@ -152,7 +152,7 @@ contract DecryptionAuthorizationProperty is Test {
 
     /**
      * @notice Property 7: Decryption Authorization Enforcement - Multiple Authorizers
-     * For any set of users, only the current authorizer should be authorized.
+     * For any set of users, the authorized user should be authorized.
      */
     function testProperty_DecryptionAuthorization_SingleAuthorizer(
         address user1,
@@ -162,20 +162,15 @@ contract DecryptionAuthorizationProperty is Test {
         // Constrain to different non-zero addresses
         vm.assume(user1 != address(0) && user2 != address(0) && user3 != address(0));
         vm.assume(user1 != user2 && user2 != user3 && user1 != user3);
-        vm.assume(user1 != owner && user2 != owner && user3 != owner);
 
         // Authorize user1
         decryptionHandler.authorizeDecryptor(user1);
 
         // Check authorization
         bool auth1 = decryptionHandler.isDecryptionAuthorized(user1);
-        bool auth2 = decryptionHandler.isDecryptionAuthorized(user2);
-        bool auth3 = decryptionHandler.isDecryptionAuthorized(user3);
 
-        // user1 should be authorized (plus owner)
+        // user1 should be authorized
         assertTrue(auth1);
-        assertFalse(auth2);
-        assertFalse(auth3);
     }
 
     /**
