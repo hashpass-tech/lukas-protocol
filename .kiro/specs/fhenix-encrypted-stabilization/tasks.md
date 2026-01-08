@@ -32,9 +32,10 @@
   - **Validates: Requirements 1.2, 4.2**
   - ✅ COMPLETED: 12 property-based tests (256 runs each)
 
-- [ ] 3.2 Write property test for mint ceiling comparison
+- [x] 3.2 Write property test for mint ceiling comparison
   - **Feature: fhenix-encrypted-stabilization, Property 3: Encrypted Comparison Equivalence**
   - **Validates: Requirements 1.3, 4.2**
+  - ✅ COMPLETED: 11 property-based tests (256 runs each)
 
 - [x] 4. Implement Encrypted Peg Deviation Sensitivity module
   - Create EncryptedPegDeviation contract implementing IEncryptedPegDeviation
@@ -44,9 +45,10 @@
   - Add emergency decryption with authorization checks
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [ ] 4.1 Write property test for encrypted peg deviation
+- [x] 4.1 Write property test for encrypted peg deviation
   - **Feature: fhenix-encrypted-stabilization, Property 2: Homomorphic Operation Correctness**
   - **Validates: Requirements 1.2, 4.2**
+  - ✅ COMPLETED: 11 property-based tests (256 runs each)
 
 - [x] 5. Implement Encrypted Curve Parameters module
   - Create EncryptedCurveParameters contract implementing IEncryptedCurveParameters
@@ -56,9 +58,10 @@
   - Add emergency decryption with authorization checks
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [ ] 5.1 Write property test for encrypted curve parameters
+- [x] 5.1 Write property test for encrypted curve parameters
   - **Feature: fhenix-encrypted-stabilization, Property 4: Polynomial Evaluation Correctness**
   - **Validates: Requirements 1.2, 4.2**
+  - ✅ COMPLETED: 12 property-based tests (256 runs each)
 
 - [x] 6. Implement FHENIX Computation Engine
   - Create FhenixComputationEngine contract implementing IFhenixComputationEngine
@@ -69,21 +72,25 @@
   - Add gas tracking and computation validation
   - _Requirements: 1.2, 4.2_
 
-- [ ] 6.1 Write property test for encrypted addition
+- [x] 6.1 Write property test for encrypted addition
   - **Feature: fhenix-encrypted-stabilization, Property 2: Homomorphic Operation Correctness**
   - **Validates: Requirements 1.2, 4.2**
+  - ✅ COMPLETED: Covered in HomomorphicOperations.t.sol (12 tests)
 
-- [ ] 6.2 Write property test for encrypted scalar multiplication
+- [x] 6.2 Write property test for encrypted scalar multiplication
   - **Feature: fhenix-encrypted-stabilization, Property 2: Homomorphic Operation Correctness**
   - **Validates: Requirements 1.2, 4.2**
+  - ✅ COMPLETED: Covered in HomomorphicOperations.t.sol (12 tests)
 
-- [ ] 6.3 Write property test for encrypted comparison
+- [x] 6.3 Write property test for encrypted comparison
   - **Feature: fhenix-encrypted-stabilization, Property 3: Encrypted Comparison Equivalence**
   - **Validates: Requirements 1.3, 4.2**
+  - ✅ COMPLETED: Covered in EncryptedComparison.t.sol (11 tests)
 
-- [ ] 6.4 Write property test for encrypted polynomial evaluation
+- [x] 6.4 Write property test for encrypted polynomial evaluation
   - **Feature: fhenix-encrypted-stabilization, Property 4: Polynomial Evaluation Correctness**
   - **Validates: Requirements 1.2, 4.2**
+  - ✅ COMPLETED: Covered in EncryptedCurveParameters.t.sol (12 tests)
 
 - [x] 7. Implement FHENIX Decryption Handler
   - Create FhenixDecryptionHandler contract implementing IFhenixDecryptionHandler
@@ -93,9 +100,10 @@
   - Implement emergency decryption with multi-sig requirement
   - _Requirements: 1.3, 1.4, 4.1_
 
-- [ ] 7.1 Write property test for decryption authorization
+- [x] 7.1 Write property test for decryption authorization
   - **Feature: fhenix-encrypted-stabilization, Property 7: Decryption Authorization Enforcement**
   - **Validates: Requirements 1.4, 4.1**
+  - ✅ COMPLETED: 12 property-based tests (256 runs each)
 
 - [x] 8. Checkpoint - Ensure all core encryption tests pass
   - Ensure all tests pass, ask the user if questions arise.
@@ -163,6 +171,7 @@
 - [ ] 14.1 Write property test for encryption integrity
   - **Feature: fhenix-encrypted-stabilization, Property 5: Encryption Integrity Preservation**
   - **Validates: Requirements 1.4, 4.1**
+  - ✅ COMPLETED: 11 property-based tests (256 runs each)
 
 - [ ] 14.2 Write property test for round-trip encryption/decryption
   - **Feature: fhenix-encrypted-stabilization, Property 1: Encryption Round-Trip Consistency**
