@@ -11,34 +11,15 @@ echo "Repository Documentation Cleanup"
 echo "=========================================="
 echo ""
 
-# Define critical files to keep in root
+# Define critical files to keep in root (whitelist)
 CRITICAL_FILES=(
     "README.md"
     "CHANGELOG.md"
     "VERSIONING.md"
     "LICENSE"
-)
-
-# Define files to archive
-FILES_TO_ARCHIVE=(
-    "AMOY_DEPLOYMENT_READINESS_CHECKLIST.md"
-    "AMOY_DEPLOYMENT_SUMMARY.md"
-    "AMOY_QUICK_START_DEPLOYMENT.md"
-    "DEPLOYMENT_READINESS_SUMMARY.md"
-    "EXECUTE_AMOY_DEPLOYMENT.md"
-    "FHENIX_AMOY_DEPLOYMENT_EXECUTION.md"
-    "FHENIX_DEPLOYMENT_SUMMARY.md"
-    "FHENIX_IMPLEMENTATION_STATUS.md"
-    "FHENIX_PHASE3_COMPLETION_SUMMARY.md"
-    "FHENIX_PROJECT_COMPLETION_REPORT.md"
-    "FHENIX_PROPERTY_TESTS_SUMMARY.md"
-    "FHENIX_SESSION_COMPLETION_REPORT.md"
-    "FINAL_DEPLOYMENT_STATUS.md"
-    "PHASE1_COMPLETION_SUMMARY.md"
-    "DEPLOYMENT_VERIFICATION.txt"
-    "AMOY_DEPLOYMENT_COMMAND.sh"
-    "DEPLOYMENT_CHECKLIST.txt"
-    "PROTOCOL_CONTRACTS_DASHBOARD_SPEC.md"
+    "CONTRIBUTING.md"
+    "CODE_OF_CONDUCT.md"
+    "SECURITY.md"
 )
 
 # Create archive directory if it doesn't exist
@@ -48,10 +29,49 @@ echo "Step 1: Archiving old documentation files..."
 echo ""
 
 ARCHIVED_COUNT=0
-for file in "${FILES_TO_ARCHIVE[@]}"; do
-    if [ -f "$file" ]; then
+ARCHIVED_FILES=()
+
+# Get all .md files in root directory
+for file in *.md; do
+    # Skip if no .md files found
+    [ -e "$file" ] || continue
+    
+    # Check if file is in whitelist
+    IS_CRITICAL=false
+    for critical in "${CRITICAL_FILES[@]}"; do
+        if [ "$file" == "$critical" ]; then
+            IS_CRITICAL=true
+            break
+        fi
+    done
+    
+    # Archive if not critical
+    if [ "$IS_CRITICAL" == "false" ]; then
         echo "  Archiving: $file"
         mv "$file" ".archive/guides/$file"
+        ARCHIVED_FILES+=("$file")
+        ARCHIVED_COUNT=$((ARCHIVED_COUNT + 1))
+    fi
+done
+
+# Also archive any .txt checklist files
+for file in *.txt; do
+    [ -e "$file" ] || continue
+    if [[ "$file" == *"CHECKLIST"* ]] || [[ "$file" == *"VERIFICATION"* ]]; then
+        echo "  Archiving: $file"
+        mv "$file" ".archive/guides/$file"
+        ARCHIVED_FILES+=("$file")
+        ARCHIVED_COUNT=$((ARCHIVED_COUNT + 1))
+    fi
+done
+
+# Archive any deployment shell scripts (except deploy-pool.sh)
+for file in *.sh; do
+    [ -e "$file" ] || continue
+    if [[ "$file" != "deploy-pool.sh" ]] && [[ "$file" == *"DEPLOYMENT"* || "$file" == *"COMMAND"* ]]; then
+        echo "  Archiving: $file"
+        mv "$file" ".archive/guides/$file"
+        ARCHIVED_FILES+=("$file")
         ARCHIVED_COUNT=$((ARCHIVED_COUNT + 1))
     fi
 done
@@ -65,7 +85,7 @@ for file in "${CRITICAL_FILES[@]}"; do
     if [ -f "$file" ]; then
         echo "  ✓ $file (present)"
     else
-        if [ "$file" != "LICENSE" ]; then
+        if [ "$file" != "LICENSE" ] && [ "$file" != "CONTRIBUTING.md" ] && [ "$file" != "CODE_OF_CONDUCT.md" ] && [ "$file" != "SECURITY.md" ]; then
             echo "  ✗ $file (MISSING)"
             MISSING_CRITICAL=$((MISSING_CRITICAL + 1))
         fi
@@ -73,43 +93,31 @@ for file in "${CRITICAL_FILES[@]}"; do
 done
 
 echo ""
-echo "Step 3: Creating archive index..."
+echo "Step 3: Updating archive index..."
 echo ""
 
-# Create archive index
-cat > .archive/guides/ARCHIVED_DOCS_INDEX.md << 'EOF'
+# Create/update archive index
+CURRENT_DATE=$(date +%Y-%m-%d)
+cat > .archive/ARCHIVED_GUIDES_INDEX.md << EOF
 # Archived Documentation Index
 
-**Date**: January 8, 2026  
+**Last Updated**: ${CURRENT_DATE}
 **Purpose**: Archive of old documentation files moved from root
 
-## Archived Files
+## Recently Archived Files
 
-### Deployment Documentation
-- AMOY_DEPLOYMENT_READINESS_CHECKLIST.md
-- AMOY_DEPLOYMENT_SUMMARY.md
-- AMOY_QUICK_START_DEPLOYMENT.md
-- DEPLOYMENT_READINESS_SUMMARY.md
-- EXECUTE_AMOY_DEPLOYMENT.md
-- FHENIX_AMOY_DEPLOYMENT_EXECUTION.md
-- AMOY_DEPLOYMENT_COMMAND.sh
+EOF
 
-### FHENIX Documentation
-- FHENIX_DEPLOYMENT_SUMMARY.md
-- FHENIX_IMPLEMENTATION_STATUS.md
-- FHENIX_PHASE3_COMPLETION_SUMMARY.md
-- FHENIX_PROJECT_COMPLETION_REPORT.md
-- FHENIX_PROPERTY_TESTS_SUMMARY.md
-- FHENIX_SESSION_COMPLETION_REPORT.md
+# Add archived files to index
+if [ ${#ARCHIVED_FILES[@]} -gt 0 ]; then
+    for file in "${ARCHIVED_FILES[@]}"; do
+        echo "- ${file}" >> .archive/ARCHIVED_GUIDES_INDEX.md
+    done
+else
+    echo "_No files archived in this run_" >> .archive/ARCHIVED_GUIDES_INDEX.md
+fi
 
-### Dashboard Documentation
-- PROTOCOL_CONTRACTS_DASHBOARD_SPEC.md
-- PHASE1_COMPLETION_SUMMARY.md
-- FINAL_DEPLOYMENT_STATUS.md
-
-### Checklists & Status
-- DEPLOYMENT_VERIFICATION.txt
-- DEPLOYMENT_CHECKLIST.txt
+cat >> .archive/ARCHIVED_GUIDES_INDEX.md << 'EOF'
 
 ## Critical Files Remaining in Root
 
@@ -128,16 +136,9 @@ To retrieve an archived file:
 ```bash
 cp .archive/guides/FILENAME.md ./FILENAME.md
 ```
-
-## Notes
-
-- Archive was created on January 8, 2026
-- Total files archived: 18
-- Purpose: Keep root directory clean and organized
-- Critical files remain in root for easy access
 EOF
 
-echo "  ✓ Created ARCHIVED_DOCS_INDEX.md"
+echo "  ✓ Updated ARCHIVED_GUIDES_INDEX.md"
 
 echo ""
 echo "=========================================="
@@ -146,11 +147,14 @@ echo "=========================================="
 echo ""
 echo "Summary:"
 echo "  Files archived: $ARCHIVED_COUNT"
-echo "  Critical files remaining: ${#CRITICAL_FILES[@]}"
-echo "  Missing critical files: $MISSING_CRITICAL"
+if [ $ARCHIVED_COUNT -gt 0 ]; then
+    echo "  Archived files:"
+    for file in "${ARCHIVED_FILES[@]}"; do
+        echo "    🗑️  $file"
+    done
+fi
 echo ""
 echo "Archive location: .archive/guides/"
-echo "Archive index: .archive/guides/ARCHIVED_DOCS_INDEX.md"
 echo ""
 
 if [ $MISSING_CRITICAL -gt 0 ]; then

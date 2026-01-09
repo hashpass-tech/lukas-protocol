@@ -13,6 +13,92 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.2.40] - 2026-01-09
+
+### Added
+
+- Task 7: Create version comparison tool specification (3c1abd4)
+- Task 6: Create version history documentation (e3edddd)
+- Add automated documentation cleanup system (3e2465b)
+- Task 5: Create interaction visualization guide (3dfc851)
+- Task 4: Create contract interaction mapping (c447e5d)
+- Add dashboard implementation status report (b7684b8)
+- Task 3: Create technical overview documentation (9a4c9d3)
+- Task 2: Create contract state documentation (e6fd5e9)
+- Task 1: Create contract registry data structure (4738aac)
+- Add Protocol Contracts Dashboard tasks (bd36fd5)
+- Add deployment checklist - visual reference guide (fa3d6da)
+- Add final deployment status - ready for Amoy (6d28027)
+- Add FHENIX Amoy deployment script (9270ef2)
+- Add deployment readiness summary (c89f7e5)
+- Add FHENIX Amoy deployment execution plan (b89eb01)
+- Add deployment verification document - confirms Amoy readiness (4d4498c)
+- Add Amoy deployment summary - ready for immediate deployment (d3218f0)
+- Add Amoy deployment readiness documentation (d6d9c93)
+- Add final project completion report - FHENIX project 100% complete (876bc66)
+- Add Phase 1 deployment configuration and guide - Tasks 15 & 16 complete (092be95)
+- Add session completion report - Phase 3 fully delivered (e6a28a8)
+- Add Phase 3 completion summary - all tasks complete (04f0496)
+- Add FHENIX stability and operations roadmap - Task 13 complete (8111440)
+- Add comprehensive FHENIX documentation - Task 12 complete (fde564c)
+- Add comprehensive FHENIX implementation status document - Phase 2 complete (3fc44cb)
+- Implement encrypted stabilization integration (Tasks 10 & 10.2) (8ccc1fd)
+- Add orchestration layer integration tests (Task 9.1) (56d3eee)
+- Complete property-based tests for FHENIX encrypted stabilization (57cdda7)
+- Add property-based tests for FHENIX encryption (24 tests, 256 runs each) (5a41948)
+- Complete FHENIX Encrypted Stabilization Infrastructure (Phase 2.1-2.4) (adc3e42)
+
+### Changed
+
+- Phase 3 Complete: Version History & Changelog (fa2daaf)
+- Cleanup system ready for Phase 3 (39a34fb)
+- Phase 2 Complete: Interactions & Dependencies (56a9168)
+- Phase 1 Complete: Contract Registry & Documentation (ef0a0c3)
+- Mark Phase 4 tasks complete - all 17 tasks finished (ae71653)
+- Mark Task 13 complete - stability and operations roadmap documentation (5320aff)
+- Mark completed tasks: 10.1, 14, 14.1, 14.2 - all property tests and checkpoint verified (3b58c0e)
+- Update FHENIX deployment summary with proxy test completion - 255 total tests passing (833a6a4)
+- Mark Tasks 10 and 10.2 as complete (775963f)
+- Mark Task 9.1 (orchestration integration tests) as complete (06803f3)
+- Update FHENIX deployment summary with property-based testing results (0054830)
+- Add FHENIX property-based tests completion summary (f7ee38f)
+- Add FHENIX deployment summary and status report (9905391)
+
+### Fixed
+
+- Fix DeployFhenixPhase1 script - correct constructor parameters (85b4a93)
+- Fix EncryptedParameterProxy tests - all 27 tests passing (1b4c839)
+- Fix DecryptionAuthorization property test SingleAuthorizer (085e1be)
+
+
+
+## [0.3.0] - 2026-01-07
+
+### Added
+
+- **FHENIX Encrypted Stabilization Infrastructure** (Phase 2.1-2.4 Complete)
+  - FhenixEncryptionManager: Key management and encryption lifecycle
+  - EncryptedMintCeiling: Encrypted supply limit parameter
+  - EncryptedPegDeviation: Encrypted sensitivity parameter
+  - EncryptedCurveParameters: Encrypted stabilization curve coefficients
+  - FhenixComputationEngine: Homomorphic operations (add, multiply, compare, polynomial eval)
+  - FhenixDecryptionHandler: Multi-sig decryption with authorization
+  - EncryptionOrchestrator: Coordinated encrypted parameter routing
+  - EncryptedParameterProxy: Modular upgrade pattern
+  - 106 comprehensive unit tests (100% passing)
+  - Complete error handling system (20+ custom errors)
+  - Full API documentation and integration guides
+
+### Changed
+
+- Updated roadmap with FHENIX implementation status
+- Enhanced protocol architecture documentation
+
+### Fixed
+
+- Fixed IHooks import in CreateSepoliaPool.s.sol
+- Fixed console.log overload issues in deployment scripts
+
 ## [0.2.39] - 2025-12-28
 
 ### Added

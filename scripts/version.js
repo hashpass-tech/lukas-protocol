@@ -27,6 +27,7 @@ const PUBLIC_CHANGELOG_FILE = path.join(ROOT_DIR, 'apps/web/public/CHANGELOG.md'
 const ROOT_PACKAGE = path.join(ROOT_DIR, 'package.json');
 const WEB_PACKAGE = path.join(ROOT_DIR, 'apps/web/package.json');
 const DOCS_PACKAGE = path.join(ROOT_DIR, 'apps/docs/package.json');
+const ARCHIVE_DOCS_SCRIPT = path.join(ROOT_DIR, 'scripts/archive-old-docs.sh');
 
 // Read version.json
 function readVersion() {
@@ -313,6 +314,32 @@ function syncChangelogToPublic() {
     log('✓ Synced CHANGELOG.md to public folder', colors.green);
 }
 
+// Clean up and archive old documentation files using the archive script
+function cleanupReleaseDocs() {
+    log('\nArchiving old documentation files...', colors.blue);
+    
+    try {
+        // Check if archive script exists
+        if (!fs.existsSync(ARCHIVE_DOCS_SCRIPT)) {
+            log('Warning: archive-old-docs.sh script not found, skipping cleanup', colors.yellow);
+            return false;
+        }
+        
+        // Execute the archive script
+        execSync(`bash "${ARCHIVE_DOCS_SCRIPT}"`, {
+            cwd: ROOT_DIR,
+            stdio: 'inherit'
+        });
+        
+        log('✓ Documentation cleanup complete', colors.green);
+        return true;
+        
+    } catch (error) {
+        log(`Warning: Could not run archive script: ${error.message}`, colors.yellow);
+        return false;
+    }
+}
+
 // Get current date in YYYY-MM-DD format
 function getCurrentDate() {
     const now = new Date();
@@ -383,8 +410,8 @@ function autoCommitChanges() {
 // Execute git commands
 function gitCommit(version) {
     try {
-        // Stage all version-related files
-        execSync('git add version.json apps/web/public/version.json CHANGELOG.md package.json apps/web/package.json apps/docs/package.json', {
+        // Stage all changes (including archived files)
+        execSync('git add -A', {
             cwd: ROOT_DIR,
             stdio: 'inherit'
         });
@@ -519,8 +546,8 @@ function main() {
     
     log('✓ Updated all version files', colors.green);
     
-    // Clean up empty sections after changelog is updated
-    // cleanupEmptySections(); // Disabled for now
+    // Clean up and archive old documentation files
+    cleanupReleaseDocs();
     
     log('\nCreating version bump commit...', colors.blue);
     gitCommit(newVersion);
