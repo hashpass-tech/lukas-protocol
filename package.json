@@ -23,6 +23,8 @@
     "version:minor": "node scripts/version.js minor",
     "version:major": "node scripts/version.js major",
     "version:current": "node scripts/version.js",
-    "sync-deployments": "node scripts/sync-deployments.js"
+    "sync-deployments": "node scripts/sync-deployments.js",
+    "archive:docs": "bash scripts/archive-old-docs.sh",
+    "cleanup": "npm run archive:docs"
   }
 }
