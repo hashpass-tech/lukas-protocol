@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.2.45] - 2026-01-09
+### Added
 - Network switcher for Protocol Contracts Dashboard (Ethereum Mainnet, Polygon Amoy, Sepolia Testnet)
 - Complete contract registry with 15 contracts across 3 networks
 - Architecture visualization showing all contract relationships
