@@ -24,15 +24,8 @@ interface Web3SettingsPanelProps {
   onOpenWeb3Settings?: () => void;
 }
 
-// Mock network configuration - in production, this would come from Web3 settings
+// Network configuration - only supported networks
 const NETWORK_CONFIG = {
-  mainnet: {
-    name: 'Ethereum Mainnet',
-    chainId: 1,
-    rpcUrl: 'https://eth-mainnet.g.alchemy.com/v2/',
-    explorerUrl: 'https://etherscan.io',
-    nativeCurrency: 'ETH',
-  },
   sepolia: {
     name: 'Sepolia Testnet',
     chainId: 11155111,
@@ -41,7 +34,7 @@ const NETWORK_CONFIG = {
     nativeCurrency: 'ETH',
   },
   amoy: {
-    name: 'Polygon Amoy',
+    name: 'Polygon Amoy Testnet',
     chainId: 80002,
     rpcUrl: 'https://polygon-amoy.g.alchemy.com/v2/',
     explorerUrl: 'https://amoy.polygonscan.com',
@@ -66,7 +59,7 @@ export default function Web3SettingsPanel({
     const network = contract.deployment.network.toLowerCase();
     return (
       NETWORK_CONFIG[network as keyof typeof NETWORK_CONFIG] ||
-      NETWORK_CONFIG.mainnet
+      NETWORK_CONFIG.amoy
     );
   }, [contract.deployment.network]);
 

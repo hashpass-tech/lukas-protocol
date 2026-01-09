@@ -33,7 +33,7 @@ export default function ContractCard({ contract, onClick, compact = false }: Con
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-bold text-blue-300 group-hover:text-primary transition-colors truncate">
+            <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors truncate">
               {contract.name}
             </h3>
             <p className="text-xs text-muted-foreground truncate">
@@ -57,14 +57,14 @@ export default function ContractCard({ contract, onClick, compact = false }: Con
       className="group bg-card border border-border rounded-lg p-6 hover:border-primary hover:shadow-lg hover:shadow-primary/20 transition-all cursor-pointer"
     >
       {/* Header */}
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex-1">
-          <h3 className="text-lg font-bold text-blue-300 group-hover:text-primary transition-colors">
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors truncate">
             {contract.name}
           </h3>
-          <p className="text-sm text-muted-foreground mt-1">{contract.category}</p>
+          <p className="text-sm text-muted-foreground mt-1 truncate">{contract.category}</p>
         </div>
-        <span className={`px-3 py-1 rounded-full text-xs font-medium border ${statusColor}`}>
+        <span className={`px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap shrink-0 ${statusColor}`}>
           {contract.state.status}
         </span>
       </div>
@@ -75,18 +75,18 @@ export default function ContractCard({ contract, onClick, compact = false }: Con
       {/* Address */}
       <div className="mb-4 p-3 bg-muted rounded border border-border">
         <p className="text-xs text-muted-foreground mb-1">Address</p>
-        <p className="text-xs font-mono text-blue-200 truncate">{contract.deployment.address}</p>
+        <p className="text-xs font-mono text-foreground/80 truncate">{contract.deployment.address}</p>
       </div>
 
       {/* Info Grid */}
       <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
         <div>
           <p className="text-muted-foreground">Version</p>
-          <p className="text-blue-300 font-semibold">{contract.state.version}</p>
+          <p className="text-foreground font-semibold">{contract.state.version}</p>
         </div>
         <div>
           <p className="text-muted-foreground">Network</p>
-          <p className="text-blue-300 font-semibold capitalize">{contract.deployment.network}</p>
+          <p className="text-foreground font-semibold capitalize">{contract.deployment.network}</p>
         </div>
       </div>
 

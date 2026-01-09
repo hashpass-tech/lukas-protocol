@@ -384,22 +384,22 @@ export default function ArchitectureVisualization({ contracts }: ArchitectureVis
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
             <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-cyan-500 rounded" />
             Architecture
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm">
+          <p className="text-muted-foreground text-sm">
             {viewMode === '3d' ? 'Interactive 3D visualization - drag to rotate, scroll to zoom' : 'Interactive 2D graph - drag nodes, scroll to zoom'}
           </p>
         </div>
         
-        <div className="flex items-center gap-2 bg-slate-200 dark:bg-slate-700/50 rounded-lg p-1">
+        <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
           <button onClick={() => setViewMode('3d')} title="3D View"
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === '3d' ? 'bg-blue-500 text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === '3d' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
             <Box className="w-4 h-4" /><span>3D</span>
           </button>
           <button onClick={() => setViewMode('2d')} title="2D View"
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === '2d' ? 'bg-blue-500 text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${viewMode === '2d' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
             <Layers className="w-4 h-4" /><span>2D</span>
           </button>
         </div>
@@ -410,35 +410,35 @@ export default function ArchitectureVisualization({ contracts }: ArchitectureVis
         <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
           {viewMode === '2d' ? (
             <>
-              <button onClick={() => handleZoom2D('in')} className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-colors" title="Zoom in">
-                <ZoomIn className="w-4 h-4 text-slate-300" />
+              <button onClick={() => handleZoom2D('in')} className="p-2 bg-card hover:bg-muted rounded-lg border border-border transition-colors" title="Zoom in">
+                <ZoomIn className="w-4 h-4 text-foreground" />
               </button>
-              <button onClick={() => handleZoom2D('out')} className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-colors" title="Zoom out">
-                <ZoomOut className="w-4 h-4 text-slate-300" />
+              <button onClick={() => handleZoom2D('out')} className="p-2 bg-card hover:bg-muted rounded-lg border border-border transition-colors" title="Zoom out">
+                <ZoomOut className="w-4 h-4 text-foreground" />
               </button>
-              <button onClick={() => handleZoom2D('reset')} className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-colors" title="Reset view">
-                <Maximize2 className="w-4 h-4 text-slate-300" />
+              <button onClick={() => handleZoom2D('reset')} className="p-2 bg-card hover:bg-muted rounded-lg border border-border transition-colors" title="Reset view">
+                <Maximize2 className="w-4 h-4 text-foreground" />
               </button>
             </>
           ) : (
-            <button onClick={() => setKey3D(k => k + 1)} className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-600 transition-colors" title="Reset 3D view">
-              <RefreshCw className="w-4 h-4 text-slate-300" />
+            <button onClick={() => setKey3D(k => k + 1)} className="p-2 bg-card hover:bg-muted rounded-lg border border-border transition-colors" title="Reset 3D view">
+              <RefreshCw className="w-4 h-4 text-foreground" />
             </button>
           )}
         </div>
 
         {selectedContract && (
-          <div className="absolute top-4 left-4 z-10 bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-lg p-4 max-w-xs">
-            <h3 className="font-semibold text-white mb-2">{selectedContract.name}</h3>
+          <div className="absolute top-4 left-4 z-10 bg-card/95 backdrop-blur-sm border border-border rounded-lg p-4 max-w-xs">
+            <h3 className="font-semibold text-foreground mb-2">{selectedContract.name}</h3>
             <div className="space-y-1 text-sm">
-              <p className="text-slate-400">Category: <span className="text-slate-200">{selectedContract.category}</span></p>
-              <p className="text-slate-400">Status: <span className={selectedContract.state.status === 'active' ? 'text-green-400' : selectedContract.state.status === 'testing' ? 'text-yellow-400' : 'text-red-400'}>{selectedContract.state.status}</span></p>
-              <p className="text-slate-400">Version: <span className="text-slate-200">{selectedContract.state.version}</span></p>
+              <p className="text-muted-foreground">Category: <span className="text-foreground">{selectedContract.category}</span></p>
+              <p className="text-muted-foreground">Status: <span className={selectedContract.state.status === 'active' ? 'text-green-400' : selectedContract.state.status === 'testing' ? 'text-yellow-400' : 'text-red-400'}>{selectedContract.state.status}</span></p>
+              <p className="text-muted-foreground">Version: <span className="text-foreground">{selectedContract.state.version}</span></p>
             </div>
           </div>
         )}
 
-        <div className="absolute bottom-4 left-4 z-10 text-xs text-slate-500">
+        <div className="absolute bottom-4 left-4 z-10 text-xs text-muted-foreground">
           {viewMode === '3d' ? '🖱️ Drag to rotate • Scroll to zoom • Click node for details' : '🖱️ Drag nodes • Scroll to zoom • Click for details'}
         </div>
 
@@ -458,15 +458,15 @@ export default function ArchitectureVisualization({ contracts }: ArchitectureVis
       {/* Category Legend */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {Object.entries(contractsByCategory).map(([category, categoryContracts]) => (
-          <div key={category} className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
+          <div key={category} className="bg-card border border-border rounded-lg p-4">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-4 h-4 rounded-full shadow-lg" style={{ backgroundColor: CATEGORY_COLORS[category] || CATEGORY_COLORS.default, boxShadow: `0 0 10px ${CATEGORY_COLORS[category] || CATEGORY_COLORS.default}` }} />
-              <h3 className="font-semibold text-slate-900 dark:text-white">{category}</h3>
+              <h3 className="font-semibold text-foreground">{category}</h3>
             </div>
             <div className="space-y-1">
               {categoryContracts.map((contract) => (
                 <div key={contract.id} onClick={() => setSelectedNode(selectedNode === contract.id ? null : contract.id)}
-                  className={`text-xs flex items-center gap-2 cursor-pointer transition-colors ${selectedNode === contract.id ? 'text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}>
+                  className={`text-xs flex items-center gap-2 cursor-pointer transition-colors ${selectedNode === contract.id ? 'text-blue-400' : 'text-muted-foreground hover:text-foreground'}`}>
                   <div className={`w-1.5 h-1.5 rounded-full ${contract.state.status === 'active' ? 'bg-green-500' : contract.state.status === 'testing' ? 'bg-yellow-500' : 'bg-red-500'}`} />
                   {contract.name}
                 </div>
@@ -477,11 +477,11 @@ export default function ArchitectureVisualization({ contracts }: ArchitectureVis
       </div>
 
       {/* Connection Types Legend */}
-      <div className="bg-slate-100 dark:bg-slate-900/50 rounded-lg p-4 border border-slate-300 dark:border-slate-700">
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Connection Types</h3>
+      <div className="bg-card border border-border rounded-lg p-4">
+        <h3 className="text-sm font-semibold text-foreground mb-4">Connection Types</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {Object.entries(CONNECTION_TYPES).map(([type, config]) => (
-            <div key={type} className="flex items-start gap-3 p-3 bg-slate-200 dark:bg-slate-800 rounded-lg">
+            <div key={type} className="flex items-start gap-3 p-3 bg-muted rounded-lg border border-border">
               <div className="flex items-center gap-1 mt-1">
                 {config.dashed ? (
                   <div className="flex items-center">
@@ -504,19 +504,19 @@ export default function ArchitectureVisualization({ contracts }: ArchitectureVis
                 )}
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-900 dark:text-white">{config.label}</p>
-                <p className="text-xs text-slate-600 dark:text-slate-400">{config.desc}</p>
+                <p className="text-sm font-medium text-foreground">{config.label}</p>
+                <p className="text-xs text-muted-foreground">{config.desc}</p>
               </div>
             </div>
           ))}
         </div>
         
         {/* Status Legend */}
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-white mt-4 mb-3">Contract Status</h3>
+        <h3 className="text-sm font-semibold text-foreground mt-4 mb-3">Contract Status</h3>
         <div className="flex flex-wrap gap-4">
-          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-green-500 rounded-full" /><span className="text-xs text-slate-600 dark:text-slate-400">Active - Deployed and operational</span></div>
-          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-yellow-500 rounded-full" /><span className="text-xs text-slate-600 dark:text-slate-400">Testing - Under development</span></div>
-          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-red-500 rounded-full" /><span className="text-xs text-slate-600 dark:text-slate-400">Deprecated - No longer active</span></div>
+          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-green-500 rounded-full" /><span className="text-xs text-muted-foreground">Active - Deployed and operational</span></div>
+          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-yellow-500 rounded-full" /><span className="text-xs text-muted-foreground">Testing - Under development</span></div>
+          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-red-500 rounded-full" /><span className="text-xs text-muted-foreground">Deprecated - No longer active</span></div>
         </div>
       </div>
     </div>
