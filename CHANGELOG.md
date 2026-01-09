@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.2.42] - 2026-01-09
+### Added
 - Contracts view always visible in header (no wallet connection required)
 
 ### Changed

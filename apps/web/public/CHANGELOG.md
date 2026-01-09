@@ -13,6 +13,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [0.2.42] - 2026-01-09
+### Added
+- Contracts view always visible in header (no wallet connection required)
+
+### Changed
+- Updated dashboard components to use CSS variables for proper dark/light mode support
+- Improved text contrast in dark mode with white titles for better readability
+- Theme switching now works across entire app (light/dark mode toggle functional)
+
+### Fixed
+- Dark mode not applying properly on contracts dashboard
+- Light mode not working due to forced dark theme
+- Poor text contrast on contract titles in dark mode
+- Theme provider now respects user preference instead of forcing dark mode
+
+## [0.2.42] - 2026-01-09
+### Added
+
+### Changed
+
+### Fixed
+
+## [0.2.42] - 2026-01-09
+
+### Added
+- Contracts view always visible in header (no wallet connection required)
+
+### Changed
+- Updated dashboard components to use CSS variables for proper dark/light mode support
+- Improved text contrast in dark mode with white titles for better readability
+- Theme switching now works across entire app (light/dark mode toggle functional)
+
+### Fixed
+- Dark mode not applying properly on contracts dashboard
+- Light mode not working due to forced dark theme
+- Poor text contrast on contract titles in dark mode
+- Theme provider now respects user preference instead of forcing dark mode
+
 ## [0.2.41] - 2026-01-09
 ### Added
 - D3.js 2D/3D architecture visualization for Protocol Contracts Dashboard
