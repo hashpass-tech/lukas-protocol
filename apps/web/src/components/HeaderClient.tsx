@@ -43,17 +43,15 @@ export function HeaderClient() {
           </div>
 
           <div className="flex items-center gap-1 sm:gap-2 md:gap-3 min-w-0 justify-end flex-shrink-0">
-            {/* Contracts Link - shown when wallet connected on md+ */}
-            {isConnected && (
-              <Link
-                href={`/${locale}/contracts`}
-                className="hidden md:flex items-center gap-1 px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-medium text-foreground hover:text-primary border border-border/50 hover:border-primary/50 rounded-lg transition-all duration-200 hover:bg-primary/5 flex-shrink-0"
-                title="View protocol contracts"
-              >
-                <Database className="w-3.5 sm:w-4 h-3.5 sm:h-4 flex-shrink-0" />
-                <span className="hidden lg:inline whitespace-nowrap">Contracts</span>
-              </Link>
-            )}
+            {/* Contracts Link - always visible on md+ */}
+            <Link
+              href={`/${locale}/contracts`}
+              className="hidden md:flex items-center gap-1 px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-medium text-foreground hover:text-primary border border-border/50 hover:border-primary/50 rounded-lg transition-all duration-200 hover:bg-primary/5 flex-shrink-0"
+              title="View protocol contracts"
+            >
+              <Database className="w-3.5 sm:w-4 h-3.5 sm:h-4 flex-shrink-0" />
+              <span className="hidden lg:inline whitespace-nowrap">Contracts</span>
+            </Link>
             {/* Pool Link - shown when wallet connected on md+ */}
             {isConnected && (
               <Link
@@ -124,20 +122,18 @@ export function HeaderClient() {
               <div>
                 <MobileThemeSwitcher />
               </div>
-              {/* Contracts Link - shown when wallet connected */}
-              {isConnected && (
-                <Link
-                  href={`/${locale}/contracts`}
-                  onClick={() => {
-                    setMobileOpen(false);
-                    setMobileSidebarOpen(false);
-                  }}
-                  className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-foreground bg-primary/10 hover:bg-primary/20 border border-primary/30 rounded-lg transition-all duration-200"
-                >
-                  <Database className="w-4 h-4 text-primary" />
-                  <span>Contracts</span>
-                </Link>
-              )}
+              {/* Contracts Link - always visible */}
+              <Link
+                href={`/${locale}/contracts`}
+                onClick={() => {
+                  setMobileOpen(false);
+                  setMobileSidebarOpen(false);
+                }}
+                className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-foreground bg-primary/10 hover:bg-primary/20 border border-primary/30 rounded-lg transition-all duration-200"
+              >
+                <Database className="w-4 h-4 text-primary" />
+                <span>Contracts</span>
+              </Link>
               {/* Pool Link - shown when wallet connected, between theme and wallet */}
               {isConnected && (
                 <Link

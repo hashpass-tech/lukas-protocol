@@ -80,7 +80,7 @@ export default function RoadmapSection() {
           <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded" />
           Roadmap
         </h2>
-        <p className="text-slate-600 dark:text-slate-400 text-sm" title="View upcoming contracts and features">
+        <p className="text-muted-foreground text-sm" title="View upcoming contracts and features">
           Upcoming contracts and features coming to the LUKAS protocol
         </p>
       </div>
@@ -94,14 +94,14 @@ export default function RoadmapSection() {
             <div
               key={item.name}
               title={`${item.name} - ${config.label} - ${item.timeline}`}
-              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:border-purple-400 dark:hover:border-purple-500 transition-all cursor-help"
+              className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 transition-all cursor-help"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
+                  <h3 className="text-lg font-bold text-white mb-1">
                     {item.name}
                   </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                  <p className="text-sm text-muted-foreground">
                     {item.category}
                   </p>
                 </div>
@@ -110,15 +110,15 @@ export default function RoadmapSection() {
                 </div>
               </div>
 
-              <p className="text-sm text-slate-700 dark:text-slate-300 mb-4">
+              <p className="text-sm text-foreground/80 mb-4">
                 {item.description}
               </p>
 
-              <div className="flex items-center justify-between pt-4 border-t border-slate-300 dark:border-slate-700">
+              <div className="flex items-center justify-between pt-4 border-t border-border">
                 <span className={`px-3 py-1 rounded-full text-xs font-medium ${config.bgColor} ${config.textColor}`} title={config.label}>
                   {config.label}
                 </span>
-                <span className="text-xs text-slate-600 dark:text-slate-500 font-medium" title="Expected timeline">
+                <span className="text-xs text-muted-foreground font-medium" title="Expected timeline">
                   {item.timeline}
                 </span>
               </div>

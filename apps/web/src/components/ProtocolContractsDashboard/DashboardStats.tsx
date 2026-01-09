@@ -69,15 +69,15 @@ export default function DashboardStats({ contracts }: DashboardStatsProps) {
           <div
             key={item.label}
             title={item.tooltip}
-            className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:border-slate-300 dark:hover:border-slate-600 transition-colors cursor-help"
+            className="bg-card border border-border rounded-lg p-6 hover:border-border transition-colors cursor-help"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-slate-600 dark:text-slate-400 text-sm font-medium">{item.label}</h3>
+              <h3 className="text-muted-foreground text-sm font-medium">{item.label}</h3>
               <div className={`bg-gradient-to-br ${item.color} p-2 rounded-lg`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
             </div>
-            <p className="text-3xl font-bold text-slate-900 dark:text-white">{item.value}</p>
+            <p className="text-3xl font-bold text-foreground">{item.value}</p>
           </div>
         );
       })}

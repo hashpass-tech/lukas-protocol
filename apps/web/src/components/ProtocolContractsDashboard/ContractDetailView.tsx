@@ -46,10 +46,10 @@ export default function ContractDetailView({ contract, onBack, onOpenWeb3Setting
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-6">
+      <div className="bg-card border border-border rounded-lg p-6">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-4 transition-colors"
+          className="flex items-center gap-2 text-primary hover:text-primary/80 mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Registry
@@ -57,8 +57,8 @@ export default function ContractDetailView({ contract, onBack, onOpenWeb3Setting
 
         <div className="flex items-start justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{contract.name}</h1>
-            <p className="text-slate-600 dark:text-slate-400">{contract.description}</p>
+            <h1 className="text-3xl font-bold text-white mb-2">{contract.name}</h1>
+            <p className="text-muted-foreground">{contract.description}</p>
           </div>
           <span className="px-4 py-2 bg-green-500/20 text-green-700 dark:text-green-400 border border-green-500/30 rounded-lg text-sm font-medium capitalize">
             {contract.state.status}
@@ -66,19 +66,19 @@ export default function ContractDetailView({ contract, onBack, onOpenWeb3Setting
         </div>
 
         {/* Address Section */}
-        <div className="bg-slate-100 dark:bg-slate-900/50 rounded border border-slate-300 dark:border-slate-700 p-4">
-          <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">Contract Address</p>
+        <div className="bg-muted rounded border border-border p-4">
+          <p className="text-xs text-muted-foreground mb-2">Contract Address</p>
           <div className="flex items-center justify-between">
-            <p className="text-sm font-mono text-slate-800 dark:text-slate-300">{contract.deployment.address}</p>
+            <p className="text-sm font-mono text-white">{contract.deployment.address}</p>
             <button
               onClick={handleCopyAddress}
-              className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+              className="p-2 hover:bg-accent rounded transition-colors"
               title="Copy address"
             >
               {copiedAddress ? (
                 <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
               ) : (
-                <Copy className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                <Copy className="w-4 h-4 text-muted-foreground" />
               )}
             </button>
           </div>
@@ -87,16 +87,16 @@ export default function ContractDetailView({ contract, onBack, onOpenWeb3Setting
         {/* Quick Info */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
           <div>
-            <p className="text-xs text-slate-600 dark:text-slate-400">Version</p>
-            <p className="text-lg font-semibold text-slate-900 dark:text-white">{contract.state.version}</p>
+            <p className="text-xs text-muted-foreground">Version</p>
+            <p className="text-lg font-semibold text-white">{contract.state.version}</p>
           </div>
           <div>
-            <p className="text-xs text-slate-600 dark:text-slate-400">Network</p>
-            <p className="text-lg font-semibold text-slate-900 dark:text-white capitalize">{contract.deployment.network}</p>
+            <p className="text-xs text-muted-foreground">Network</p>
+            <p className="text-lg font-semibold text-white capitalize">{contract.deployment.network}</p>
           </div>
           <div>
-            <p className="text-xs text-slate-600 dark:text-slate-400">Category</p>
-            <p className="text-lg font-semibold text-slate-900 dark:text-white">{contract.category}</p>
+            <p className="text-xs text-muted-foreground">Category</p>
+            <p className="text-lg font-semibold text-white">{contract.category}</p>
           </div>
           <div>
             <p className="text-xs text-slate-600 dark:text-slate-400">Deployment Block</p>

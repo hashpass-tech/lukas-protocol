@@ -14,7 +14,6 @@ export function Providers({ children }: { children: any }) {
             enableSystem={false}
             storageKey="theme"
             disableTransitionOnChange
-            forcedTheme="dark"
         >
             {/* <AlchemyProvider> */}
                 <WalletProvider>

@@ -35,14 +35,6 @@ export default function ProtocolContractsDashboard({
   const [layoutView, setLayoutView] = useState<'grid' | 'list' | 'compact'>('grid');
   const [mainTab, setMainTab] = useState<MainTab>('contracts');
 
-  // Ensure dark mode is applied
-  React.useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-  }, []);
-
   // Filter contracts based on search and category
   const filteredContracts = useMemo(() => {
     if (!contractsData?.contracts) return [];
@@ -75,7 +67,7 @@ export default function ProtocolContractsDashboard({
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 pt-16 sm:pt-20 pb-20 sm:pb-16">
+    <div className="min-h-screen bg-background pt-16 sm:pt-20 pb-20 sm:pb-16">
       <DashboardHeader
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
@@ -95,7 +87,7 @@ export default function ProtocolContractsDashboard({
         <DashboardStats contracts={contractsData?.contracts || []} />
 
         {/* Main Tabs */}
-        <div className="mt-8 border-b border-slate-300 dark:border-slate-700">
+        <div className="mt-8 border-b border-border">
           <div className="flex gap-1 overflow-x-auto">
             {[
               { id: 'contracts', label: 'Contracts', icon: Zap, tooltip: 'View deployed contracts' },
@@ -111,8 +103,8 @@ export default function ProtocolContractsDashboard({
                 title={tooltip}
                 className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-all whitespace-nowrap ${
                   mainTab === id
-                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300'
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <Icon className="w-4 h-4" />

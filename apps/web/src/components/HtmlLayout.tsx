@@ -15,7 +15,7 @@ export function HtmlLayout({
   bodyClassName = "font-mono antialiased" 
 }: HtmlLayoutProps) {
   return (
-    <html lang={lang} className={`dark ${className}`} suppressHydrationWarning>
+    <html lang={lang} className={className} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -34,8 +34,12 @@ export function HtmlLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              document.documentElement.classList.add('dark');
-              localStorage.setItem('theme', 'dark');
+              const theme = localStorage.getItem('theme') || 'dark';
+              if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+              } else {
+                document.documentElement.classList.remove('dark');
+              }
             `,
           }}
         />
