@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Network switcher for Protocol Contracts Dashboard (Ethereum Mainnet, Polygon Amoy, Sepolia Testnet)
+- Complete contract registry with 15 contracts across 3 networks
+- Architecture visualization showing all contract relationships
+
+### Changed
+- Updated contract data to show only verified deployments
+- Improved badge sizing on contract cards (fixed overflow issues)
+- Enhanced dark mode support with semantic CSS variables throughout
+
+### Fixed
+- Removed placeholder StabilizerVault address from Amoy deployments
+- Corrected deployment data accuracy to 100% verified
+- Fixed dark mode contrast issues in Architecture visualization component
+
+## [0.2.44] - 2026-01-09
+### Added
 
 ### Changed
 
