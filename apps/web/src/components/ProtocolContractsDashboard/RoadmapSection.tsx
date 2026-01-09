@@ -98,7 +98,7 @@ export default function RoadmapSection() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-white mb-1">
+                  <h3 className="text-lg font-bold text-blue-300 mb-1">
                     {item.name}
                   </h3>
                   <p className="text-sm text-muted-foreground">
