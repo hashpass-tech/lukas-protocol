@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.2.41] - 2026-01-09
+### Added
 - D3.js 2D/3D architecture visualization for Protocol Contracts Dashboard
 - Three.js 3D view with orbiting nodes, animated connections, and camera controls
 - 2D/3D view switcher with 3D as default
