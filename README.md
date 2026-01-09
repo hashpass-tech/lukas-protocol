@@ -1,12 +1,18 @@
 # 🇱🇦 **$LUKAS – The First LatAm Basket-Stable Meme Coin**
 
+[![Deploy to GitHub Pages](https://github.com/hashpass-tech/lukas-protocol/actions/workflows/deploy.yml/badge.svg)](https://github.com/hashpass-tech/lukas-protocol/actions/workflows/deploy.yml)
+[![Publish Lukas SDK](https://github.com/hashpass-tech/lukas-protocol/actions/workflows/publish-sdk.yml/badge.svg)](https://github.com/hashpass-tech/lukas-protocol/actions/workflows/publish-sdk.yml)
+[![Version](https://img.shields.io/badge/version-0.2.41-blue.svg)](./version.json)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@lukas-protocol/sdk)](https://www.npmjs.com/package/@lukas-protocol/sdk)
+
 ### **Open-Source Monorepo: Index Oracle • Uniswap v4 Hook • Adapters • Stabilizer Vault**
 
 ---
 
 ## 🌎 Overview
 
-**$LUKAS** is an open, community-driven protocol that introduces the **world’s first regional Latin American basket-stable meme coin**, pegged to a weighted index of **BRL, MXN, COP, CLP, and ARS** currencies:
+**$LUKAS** is an open, community-driven protocol that introduces the **world's first regional Latin American basket-stable meme coin**, pegged to a weighted index of **BRL, MXN, COP, CLP, and ARS** currencies:
 
 | Currency | Weight |
 | -------- | ------ |
@@ -25,23 +31,35 @@ This repository provides the **on-chain infrastructure** that maintains the peg,
 * **Cross-chain FX feeds** for MXN & ARS
 * **CLP oracle integration**
 * **Stabilizer vault module** for mint/burn and liquidity management
+* **FHENIX encrypted stabilization** for privacy-preserving parameter management
 
 The architecture is intentionally modular, censorship-resistant, and audit-friendly.
 
 ---
 
-# 🏗 Repository Structure
+## 🏗 Repository Structure
 
 This is a **Turborepo** monorepo containing:
 
 ```
 .
-├── apps
-│   ├── web          # Next.js web application with Three.js animations
-│   └── docs         # Docusaurus documentation site
-├── packages
-│   └── contracts    # Foundry smart contracts (LukasToken, oracles, hooks)
-├── turbo.json       # Turborepo configuration
+├── apps/
+│   ├── web/              # Next.js web app with Protocol Contracts Dashboard
+│   │   └── src/components/ProtocolContractsDashboard/
+│   │       ├── index.tsx                    # Main dashboard component
+│   │       ├── ArchitectureVisualization.tsx # D3.js 2D / Three.js 3D visualization
+│   │       ├── ContractCard.tsx             # Contract status cards
+│   │       ├── RoadmapSection.tsx           # Development roadmap
+│   │       └── ...
+│   └── docs/             # Docusaurus documentation site
+├── packages/
+│   ├── contracts/        # Foundry smart contracts (LukasToken, oracles, hooks)
+│   ├── lukas-sdk/        # TypeScript SDK (@lukas-protocol/sdk on npm)
+│   └── legal-content/    # Single-source legal documents (Terms, Privacy)
+├── scripts/
+│   ├── version.js        # Automated versioning with changelog generation
+│   └── archive-old-docs.sh # Documentation cleanup on release
+├── turbo.json
 ├── pnpm-workspace.yaml
 └── package.json
 ```
@@ -50,65 +68,43 @@ This is a **Turborepo** monorepo containing:
 
 ## 📚 Documentation
 
-**Complete documentation is now available!** Start here:
+### Live Documentation
+- 🌐 **[lukas.lat](https://lukas.lat)** - Main web application
+- 📖 **[lukas.lat/documentation](https://lukas.lat/documentation)** - Full documentation site
 
-### Quick Start
-- 📖 **[DOCUMENTATION_INDEX.md](./DOCUMENTATION_INDEX.md)** - Complete documentation index
-- 🎯 **[CONTRACT_UPDATE_BASELINE.md](./CONTRACT_UPDATE_BASELINE.md)** - Current deployment baseline
-- ✅ **[DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)** - Step-by-step deployment
-- 🦄 **[UNISWAP_V4_DEPLOYMENT.md](./UNISWAP_V4_DEPLOYMENT.md)** - Uniswap V4 integration
+### Contract Documentation
+- 📦 **[packages/contracts/README.md](./packages/contracts/README.md)** - Smart contracts overview
+- 📊 **[packages/contracts/DEPLOYMENT_STATUS.md](./packages/contracts/DEPLOYMENT_STATUS.md)** - Live deployment tracking
 
-### Status Reports
-- 📊 **[TESTING_COMPLETE.md](./TESTING_COMPLETE.md)** - Latest test results
-- 📦 **[packages/contracts/DEPLOYMENT_STATUS.md](./packages/contracts/DEPLOYMENT_STATUS.md)** - Live deployment tracking
+### SDK Documentation
+- 📘 **[packages/lukas-sdk/README.md](./packages/lukas-sdk/README.md)** - SDK usage guide
+- 📦 **[@lukas-protocol/sdk on npm](https://www.npmjs.com/package/@lukas-protocol/sdk)** - Published package
 
-**All documentation was updated December 18, 2025 and is synced with the current codebase.**
-
----
-
-### Apps
-
-- **web**: Next.js 14 app with cybernetic grid shader background
-- **docs**: Comprehensive documentation built with Docusaurus
-
-### Packages
-
-- **contracts**: Foundry-based smart contracts including:
-  - `LukasToken.sol` - Main ERC-20 token
-  - Price feed adapters (BRZ, COPM, MXN, ARS, CLP)
-  - Uniswap v4 hooks for peg stabilization
-  - Stabilizer vault module
+### Version History
+- 📋 **[CHANGELOG.md](./CHANGELOG.md)** - Release notes and changes
+- 🔢 **[VERSIONING.md](./VERSIONING.md)** - Versioning strategy
 
 ---
 
-# 🚀 What Problem Does $LUKAS Solve?
+## ✨ Recent Updates (v0.2.41)
 
-Latin America suffers from:
+### Protocol Contracts Dashboard
+- **D3.js 2D Architecture Visualization** - Force-directed graph showing contract relationships
+- **Three.js 3D Visualization** - Interactive 3D view with orbiting nodes and animated connections
+- **2D/3D View Switcher** - Toggle between visualization modes (3D default)
+- **Directional Connection Arrows** - Shows dependency direction, bidirectional communication, and data flow
 
-* 💱 **Fragmented FX markets**
-* 🇦🇷 🇨🇱 🇨🇴 🇲🇽 🇧🇷 **Volatile currencies**
-* 💳 **No region-wide unit of account**
-* 🧱 **Barriers to cross-border commerce**
-
-There are local stablecoins (BRZ, MXNB, COPM, wARS), but:
-
-❌ They only represent **single countries**
-❌ They lack **interoperability**
-❌ They don’t share **liquidity**
-❌ They don’t integrate with **AMM-based stabilization**
-❌ They don’t create a **regional monetary layer**
-
-**$LUKAS is the first attempt to unify Latin America economically on-chain.**
+### Infrastructure
+- **Automated Documentation Cleanup** - Old docs archived on each release
+- **Version Script Enhancements** - Auto-changelog generation from git commits
 
 ---
 
-# ⚙️ Core Architecture
+## ⚙️ Core Architecture
 
-$LUKAS stabilization system is built from three components.
+$LUKAS stabilization system is built from three components:
 
----
-
-## 1️⃣ LatAmBasketIndex (Polygon)
+### 1️⃣ LatAmBasketIndex (Polygon)
 
 A canonical on-chain oracle that calculates:
 
@@ -116,73 +112,27 @@ A canonical on-chain oracle that calculates:
 LatAm Index = Σ (Fiat/USD_i * weight_i)
 ```
 
-All price inputs normalized to **1e8** decimals.
+**Inputs:** BRZAdapter, COPMAdapter, MXNRemoteFeed, ARSRemoteFeed, CLPOracle
 
-### Inputs:
+**Outputs:** `getIndexUSD()` → index in 1e8, `getLukasFairPriceInUSDC()` → price in 1e18
 
-* **BRZAdapter** → BRL/USD (Polygon)
-* **COPMAdapter** → COP/USD (Polygon)
-* **MXNRemoteFeed** → MXN/USD (cross-chain)
-* **ARSRemoteFeed** → ARS/USD (cross-chain)
-* **CLPOracle** → CLP/USD (Chainlink/Pyth/custom)
+### 2️⃣ Uniswap v4 Hook – LukasHook
 
-### Outputs:
+Custom v4 hook attached to the **LUKAS/USDC Pool**:
+- Reads pool mid-price and fair value from LatAmBasketIndex
+- Emits peg deviation events
+- Triggers StabilizerVault actions (mint/burn/LP management)
 
-* `getIndexUSD()` → returns index in 1e8
-* `getLukasFairPriceInUSDC()` → returns price scaled to 1e18
+### 3️⃣ StabilizerVault
 
-### Guarantees:
-
-* On-chain composition
-* Configurable feed weights
-* Staleness checks (optional)
-* Upgradeable feed sources, not weights (weights immutable after audit)
+Controlled module for monetary actions:
+- Mint/burn LUKAS based on peg deviation
+- Hold USDC/BTC/ETH collateral
+- Manage liquidity positions
 
 ---
 
-## 2️⃣ Uniswap v4 Hook – **LukasHook**
-
-A custom v4 hook attached to the **LUKAS/USDC Pool**.
-
-### Responsibilities:
-
-* Read LUKAS pool mid-price
-* Read fair value from `LatAmBasketIndex`
-* Compare deviation
-* Emit peg deviation events
-* Optionally trigger **StabilizerVault actions**:
-
-  * Mint LUKAS (over-peg)
-  * Buyback & burn LUKAS (under-peg)
-  * Provide/remove liquidity
-
-### Stabilization Logic (Conceptual):
-
-```text
-if LUKAS too expensive:
-    mint small amount → weaken price
-if LUKAS too cheap:
-    burn or buyback → strengthen price
-```
-
-This creates a **self-correcting peg** entirely inside Uniswap.
-
----
-
-## 3️⃣ StabilizerVault
-
-A controlled module that executes the monetary actions:
-
-* Mint LUKAS (authorized)
-* Hold USDC/BTC/ETH collateral
-* Buyback LUKAS
-* Remove/add liquidity
-
-Eventually this evolves into a **DAO-governed module**.
-
----
-
-# 🔌 Supported Price Feeds
+## 🔌 Supported Price Feeds
 
 | Currency | Source                       | Implementation    |
 | -------- | ---------------------------- | ----------------- |
@@ -192,135 +142,52 @@ Eventually this evolves into a **DAO-governed module**.
 | ARS      | wARS/USDC pool (World Chain) | ARSRemoteFeed.sol |
 | CLP      | Chainlink/Pyth/off-chain     | CLPOracle.sol     |
 
-All feeds implement:
-
-```solidity
-function getPriceUSD() external view returns (uint256 price1e8, uint256 lastUpdated);
-```
-
 ---
 
-# 🚀 Getting Started
+## 🚀 Getting Started
 
-## Prerequisites
+### Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - pnpm 8+
 - Foundry (for smart contracts)
 
-## Installation
+### Installation
 
 ```bash
 pnpm install
 ```
 
-## Development
-
-Run all apps in development mode:
+### Development
 
 ```bash
 pnpm dev
 ```
 
-This will start:
+This starts:
 - Web app at `http://localhost:3000`
 - Docs at `http://localhost:3001`
 
-### Documentation routing (`/documentation/`)
-
-In production, the documentation site is served under `/documentation/`.
-
-- Local development:
-  - Next web app: `http://localhost:3000`
-  - Docusaurus docs: `http://localhost:3001`
-  - The web app links to docs using:
-    - `http://localhost:3001` in development
-    - `/documentation` in production
-
-- Production build/deploy:
-  - The GitHub Pages workflow builds both apps.
-  - Docusaurus output (`apps/docs/build`) is copied into the web static export at:
-    - `apps/web/out/documentation`
-  - This is why `/documentation/` works in production.
-
-### Documentation i18n URLs (Docusaurus)
-
-Docusaurus is configured with locales: `en`, `es`, `pt`.
-
-- English:
-  - `/documentation/docs/...`
-- Spanish:
-  - `/documentation/es/docs/...`
-- Portuguese:
-  - `/documentation/pt/docs/...`
-
-### Legal docs single-source-of-truth (Terms/Privacy)
-
-Terms of Service and Privacy Policy are maintained as markdown files in:
-
-`packages/legal-content/`
-
-These are synced into both apps via:
-
-`node scripts/sync-legal-content.js`
-
-Sync targets:
-
-- Next.js (for runtime fetch in static export):
-  - `apps/web/public/legal/{locale}/terms.md`
-  - `apps/web/public/legal/{locale}/privacy.md`
-
-- Docusaurus (for docs + i18n):
-  - English canonical docs:
-    - `apps/docs/docs/legal/terms.md`
-    - `apps/docs/docs/legal/privacy.md`
-  - Translations:
-    - `apps/docs/i18n/{locale}/docusaurus-plugin-content-docs/current/legal/terms.md`
-    - `apps/docs/i18n/{locale}/docusaurus-plugin-content-docs/current/legal/privacy.md`
-
-Notes:
-
-- Next supports locales `en`, `es`, `pt`, `cl`. For legal docs we map `cl -> es`.
-- Do not edit the generated copies in `apps/web/public` or `apps/docs/docs` / `apps/docs/i18n`; edit only `packages/legal-content`.
-
-## Build
-
-Build all apps and packages:
+### Build
 
 ```bash
 pnpm build
 ```
 
-## Working with Smart Contracts
-
-Navigate to the contracts package:
+### Smart Contracts
 
 ```bash
 cd packages/contracts
-```
-
-Install Foundry dependencies:
-
-```bash
 forge install
-```
-
-Build contracts:
-
-```bash
 forge build
-```
-
-Run tests:
-
-```bash
 forge test
 ```
 
+---
+
 ## 🧪 Testing
 
-Unit tests are included for:
-
+Unit tests cover:
 * TWAP oracle correctness
 * Basket aggregation
 * Hook deviation logic
@@ -328,64 +195,35 @@ Unit tests are included for:
 * Stabilizer signals
 
 Integration tests simulate:
-
-* BRL crash
-* ARS hyperinflation
-* MXN devaluation
+* Currency crashes and hyperinflation scenarios
 * Multi-feed delays
 * Off-peg liquidity drains
 
 ---
 
-# 🔒 Security Philosophy
+## 🔒 Security Philosophy
 
 * **Immutable basket weights** after audit
-* **Modular upgradeability** of feeds (but not logic)
+* **Modular upgradeability** of feeds (not logic)
 * **Cross-chain price publishers use 2-of-N multisig**
 * **Optional timelock** for parameter changes
-* **All state changes are event-logged for transparency**
+* **All state changes event-logged**
 * **Hooks follow Uniswap v4 security constraints**
 
-Recommended audits:
+---
 
-1. Smart contract safety
-2. Oracle manipulation + MEV analysis
-3. Basket weight correctness
-4. Edge-case peg response modeling
+## 📜 Roadmap
+
+| Phase | Status | Description |
+|-------|--------|-------------|
+| **Phase 1** | ✅ Complete | MVP – read-only peg awareness, all feeds connected |
+| **Phase 2** | ✅ Complete | Peg Response – StabilizerVault, mint/burn thresholds |
+| **Phase 3** | 🔄 In Progress | DAO & Multi-chain – governance, bridges |
+| **Phase 4** | 📋 Planned | Full Regional Currency Layer – merchant plugins, POS, remittance |
 
 ---
 
-# 📜 Roadmap
-
-### **Phase 1 (MVP – read-only peg awareness)**
-
-* All feeds connected
-* BasketIndex live
-* v4 Hook emits deviation events
-* Basic monitoring interface
-
-### **Phase 2 (Peg Response)**
-
-* StabilizerVault enabled
-* Mint/burn thresholds activated
-* LP incentives for peg restoration
-
-### **Phase 3 (DAO & Multi-chain)**
-
-* Governance migration
-* Bridge LUKAS to other ecosystems
-* Merchant reward integration (HashPass)
-
-### **Phase 4 (Full Regional Currency Layer)**
-
-* LUKAS accepted widely via merchant plugins
-* POS gateways
-* Remittance rails
-* Savings products
-
----
-
-# 🌐 Vision
+## 🌐 Vision
 
 > **$LUKAS is the first attempt to create a unified regional unit of account for Latin America.**
 >
@@ -393,49 +231,31 @@ Recommended audits:
 
 ---
 
-# 🤝 Contributing
+## 🤝 Contributing
 
 We welcome contributions from developers, researchers, economists, and FX specialists.
 
-### How to contribute:
+1. Fork + create a feature branch
+2. Follow Foundry + Solidity style guides
+3. Submit PR with clear motivation, tests, and gas report
 
-1. Read `/docs/architecture.md`
-2. Fork + create a feature branch
-3. Follow Foundry + Solidity style guides
-4. Submit PR with:
-
-   * Clear motivation
-   * Tests
-   * Gas report
-5. Join discussions via GitHub Issues
-
-### Areas looking for contributors:
-
-* Hook optimization
-* Cross-chain FX publisher tooling
-* MEV-resistant price sampling
-* Multi-variable peg model research
-* Agent-based simulations
-* Formal verification
+**Areas looking for contributors:**
+- Hook optimization
+- Cross-chain FX publisher tooling
+- MEV-resistant price sampling
+- Formal verification
 
 ---
 
-# 📄 License
+## 📄 License
 
 MIT License — free for everyone to build and extend.
 
 ---
 
-# 💬 Community & Support
+## 💬 Community & Support
 
-Join the LUKAS dev community:
-
-* Telegram (for engineers & researchers only)
+* Twitter/X [@LUKAS_LATAM](https://twitter.com/LUKAS_LATAM)
 * Discord (public)
-* Twitter/X @LUKAS_LATAM
+* Telegram (engineers & researchers)
 * HashPass Developer Portal: *coming soon*
-
----
-
-
-Just tell me.
