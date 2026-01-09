@@ -19,22 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Missing d3 dependency in package.json causing CI build failure
 
-## [0.2.41] - 2026-01-09
-
-### Added
-
-
-
-### Changed
-
-
-
-### Fixed
-
-
-
-
-
 ## [0.2.40] - 2026-01-09
 
 ### Added
