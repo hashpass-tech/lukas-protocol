@@ -168,18 +168,79 @@ export interface ContractInfo {
 }
 
 /**
- * Contract registry
+ * Simplified contract information for dashboard display
+ */
+export interface Contract {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  deployment: {
+    address: string;
+    block: number;
+    network: string;
+    timestamp: string;
+    deployer: string;
+  };
+  state: {
+    status: string;
+    version: string;
+    owner?: string;
+    admin?: string;
+    balance?: string;
+    variables: Array<{
+      name: string;
+      type: string;
+      value: string;
+      description: string;
+      visibility: string;
+    }>;
+    lastUpdate: string;
+  };
+  technical: {
+    sourceCode: string;
+    size: number;
+    gasEstimate: number;
+    interfaces: string[];
+    functions: Array<{
+      name: string;
+      signature: string;
+      visibility: string;
+    }>;
+    errors: string[];
+  };
+  interactions?: {
+    dependencies?: Array<{
+      contractName: string;
+      functions?: string[];
+    }>;
+    dependents?: Array<{
+      contractName: string;
+      functions?: string[];
+    }>;
+    critical?: Array<{
+      description: string;
+      impact: string;
+    }>;
+  };
+  versions?: Array<{
+    version: string;
+    releaseDate: string;
+    status: string;
+    description: string;
+    changes: string[];
+    breakingChanges: string[];
+    deploymentBlock?: number;
+  }>;
+}
+
+/**
+ * Simplified contract registry for dashboard
  */
 export interface ContractRegistry {
   version: string;
   timestamp: string;
-  contracts: ContractInfo[];
-  metadata: {
-    totalContracts: number;
-    byCategory: Record<ContractCategory, number>;
-    byNetwork: Record<Network, number>;
-    byStatus: Record<ContractStatus, number>;
-  };
+  contracts: Contract[];
 }
 
 /**

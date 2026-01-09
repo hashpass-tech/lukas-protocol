@@ -1,0 +1,571 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2026-01-09T00:00:00Z",
+  "contracts": [
+    {
+      "id": "stabilizer_vault",
+      "name": "StabilizerVault",
+      "category": "Vault",
+      "description": "Main vault contract managing stabilization operations and parameter updates",
+      "deployment": {
+        "address": "0x1234567890123456789012345678901234567890",
+        "block": 19000000,
+        "network": "mainnet",
+        "timestamp": "2025-12-01T00:00:00Z",
+        "deployer": "0x0987654321098765432109876543210987654321"
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "admin": "0x1111111111111111111111111111111111111111",
+        "balance": "1000000000000000000",
+        "variables": [
+          {
+            "name": "totalAssets",
+            "type": "uint256",
+            "value": "1000000000000000000",
+            "description": "Total assets in vault",
+            "visibility": "public"
+          },
+          {
+            "name": "stabilizationFee",
+            "type": "uint256",
+            "value": "250",
+            "description": "Current stabilization fee in basis points",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-09T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/StabilizerVault.sol",
+        "size": 5000,
+        "gasEstimate": 500000,
+        "interfaces": ["IStabilizerVault", "IERC4626"],
+        "functions": [
+          {
+            "name": "deposit",
+            "signature": "deposit(uint256 assets, address receiver) returns (uint256)",
+            "visibility": "external"
+          },
+          {
+            "name": "withdraw",
+            "signature": "withdraw(uint256 assets, address receiver, address owner) returns (uint256)",
+            "visibility": "external"
+          },
+          {
+            "name": "stabilize",
+            "signature": "stabilize(uint256 amount)",
+            "visibility": "external"
+          }
+        ],
+        "errors": ["InsufficientBalance", "UnauthorizedCaller", "InvalidAmount"]
+      },
+      "interactions": {
+        "dependencies": [
+          {
+            "contractName": "LukasToken",
+            "functions": ["transfer", "transferFrom", "approve"]
+          },
+          {
+            "contractName": "MinimalPoolManager",
+            "functions": ["swap", "getPrice"]
+          }
+        ],
+        "dependents": [
+          {
+            "contractName": "LukasHook",
+            "functions": ["beforeSwap", "afterSwap"]
+          }
+        ],
+        "critical": [
+          {
+            "description": "Vault depends on LukasToken for asset transfers",
+            "impact": "Token transfer failures will block deposits and withdrawals"
+          }
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "releaseDate": "2025-12-01T00:00:00Z",
+          "status": "current",
+          "description": "Initial release of StabilizerVault",
+          "changes": [
+            "Initial implementation of vault contract",
+            "Support for ERC4626 standard",
+            "Stabilization mechanism"
+          ],
+          "breakingChanges": [],
+          "deploymentBlock": 19000000
+        }
+      ]
+    },
+    {
+      "id": "lukas_token",
+      "name": "LukasToken",
+      "category": "Token",
+      "description": "LUKAS protocol token contract with governance features",
+      "deployment": {
+        "address": "0x2345678901234567890123456789012345678901",
+        "block": 18900000,
+        "network": "mainnet",
+        "timestamp": "2025-11-15T00:00:00Z",
+        "deployer": "0x0987654321098765432109876543210987654321"
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "admin": "0x1111111111111111111111111111111111111111",
+        "balance": "1000000000000000000000000",
+        "variables": [
+          {
+            "name": "totalSupply",
+            "type": "uint256",
+            "value": "1000000000000000000000000",
+            "description": "Total supply of LUKAS tokens",
+            "visibility": "public"
+          },
+          {
+            "name": "decimals",
+            "type": "uint8",
+            "value": "18",
+            "description": "Token decimals",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-09T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/LukasToken.sol",
+        "size": 3500,
+        "gasEstimate": 350000,
+        "interfaces": ["IERC20", "IERC20Permit"],
+        "functions": [
+          {
+            "name": "transfer",
+            "signature": "transfer(address to, uint256 amount) returns (bool)",
+            "visibility": "external"
+          },
+          {
+            "name": "approve",
+            "signature": "approve(address spender, uint256 amount) returns (bool)",
+            "visibility": "external"
+          },
+          {
+            "name": "transferFrom",
+            "signature": "transferFrom(address from, address to, uint256 amount) returns (bool)",
+            "visibility": "external"
+          }
+        ],
+        "errors": ["InsufficientBalance", "InsufficientAllowance"]
+      },
+      "interactions": {
+        "dependencies": [],
+        "dependents": [
+          {
+            "contractName": "StabilizerVault",
+            "functions": ["transfer", "transferFrom"]
+          },
+          {
+            "contractName": "LukasHook",
+            "functions": ["transfer"]
+          }
+        ],
+        "critical": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "releaseDate": "2025-11-15T00:00:00Z",
+          "status": "current",
+          "description": "Initial release of LUKAS token",
+          "changes": [
+            "ERC20 implementation",
+            "Permit functionality",
+            "Initial supply minting"
+          ],
+          "breakingChanges": [],
+          "deploymentBlock": 18900000
+        }
+      ]
+    },
+    {
+      "id": "minimal_pool_manager",
+      "name": "MinimalPoolManager",
+      "category": "Protocol",
+      "description": "Minimal pool manager for Uniswap V4 integration",
+      "deployment": {
+        "address": "0x3456789012345678901234567890123456789012",
+        "block": 18950000,
+        "network": "mainnet",
+        "timestamp": "2025-11-20T00:00:00Z",
+        "deployer": "0x0987654321098765432109876543210987654321"
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "admin": "0x1111111111111111111111111111111111111111",
+        "balance": "0",
+        "variables": [
+          {
+            "name": "poolCount",
+            "type": "uint256",
+            "value": "5",
+            "description": "Number of active pools",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-09T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/MinimalPoolManager.sol",
+        "size": 4200,
+        "gasEstimate": 420000,
+        "interfaces": ["IPoolManager"],
+        "functions": [
+          {
+            "name": "createPool",
+            "signature": "createPool(address token0, address token1, uint24 fee) returns (address)",
+            "visibility": "external"
+          },
+          {
+            "name": "swap",
+            "signature": "swap(address pool, uint256 amountIn) returns (uint256)",
+            "visibility": "external"
+          },
+          {
+            "name": "getPrice",
+            "signature": "getPrice(address pool) returns (uint256)",
+            "visibility": "external"
+          }
+        ],
+        "errors": ["PoolNotFound", "InvalidSwap", "InsufficientLiquidity"]
+      },
+      "interactions": {
+        "dependencies": [
+          {
+            "contractName": "LukasToken",
+            "functions": ["transfer", "transferFrom"]
+          }
+        ],
+        "dependents": [
+          {
+            "contractName": "StabilizerVault",
+            "functions": ["swap", "getPrice"]
+          }
+        ],
+        "critical": [
+          {
+            "description": "Pool manager is critical for swap operations",
+            "impact": "Swap failures will affect vault stabilization"
+          }
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "releaseDate": "2025-11-20T00:00:00Z",
+          "status": "current",
+          "description": "Initial pool manager implementation",
+          "changes": [
+            "Pool creation and management",
+            "Swap functionality",
+            "Price oracle integration"
+          ],
+          "breakingChanges": [],
+          "deploymentBlock": 18950000
+        }
+      ]
+    },
+    {
+      "id": "lukas_hook",
+      "name": "LukasHook",
+      "category": "Hooks",
+      "description": "Uniswap V4 hook for LUKAS protocol integration",
+      "deployment": {
+        "address": "0x4567890123456789012345678901234567890123",
+        "block": 18980000,
+        "network": "mainnet",
+        "timestamp": "2025-12-10T00:00:00Z",
+        "deployer": "0x0987654321098765432109876543210987654321"
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "admin": "0x1111111111111111111111111111111111111111",
+        "balance": "0",
+        "variables": [
+          {
+            "name": "swapCount",
+            "type": "uint256",
+            "value": "1250",
+            "description": "Total number of swaps processed",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-09T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/LukasHook.sol",
+        "size": 2800,
+        "gasEstimate": 280000,
+        "interfaces": ["IHooks"],
+        "functions": [
+          {
+            "name": "beforeSwap",
+            "signature": "beforeSwap(address sender, PoolKey calldata key, IPoolManager.SwapParams calldata params) returns (bytes4)",
+            "visibility": "external"
+          },
+          {
+            "name": "afterSwap",
+            "signature": "afterSwap(address sender, PoolKey calldata key, IPoolManager.SwapParams calldata params, BalanceDelta delta) returns (bytes4)",
+            "visibility": "external"
+          }
+        ],
+        "errors": ["UnauthorizedHook", "InvalidSwapParams"]
+      },
+      "interactions": {
+        "dependencies": [
+          {
+            "contractName": "LukasToken",
+            "functions": ["transfer"]
+          }
+        ],
+        "dependents": [
+          {
+            "contractName": "MinimalPoolManager",
+            "functions": ["beforeSwap", "afterSwap"]
+          }
+        ],
+        "critical": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "releaseDate": "2025-12-10T00:00:00Z",
+          "status": "current",
+          "description": "Initial hook implementation",
+          "changes": [
+            "Before/after swap hooks",
+            "Fee collection",
+            "Event logging"
+          ],
+          "breakingChanges": [],
+          "deploymentBlock": 18980000
+        }
+      ]
+    },
+    {
+      "id": "fhenix_state_manager",
+      "name": "FHENIXStateManager",
+      "category": "FHENIX",
+      "description": "Encrypted contract state management using FHENIX protocol",
+      "deployment": {
+        "address": "0x5678901234567890123456789012345678901234",
+        "block": null,
+        "network": "mainnet",
+        "timestamp": null,
+        "deployer": null
+      },
+      "state": {
+        "status": "testing",
+        "version": "0.9.0",
+        "owner": null,
+        "admin": null,
+        "balance": "0",
+        "variables": [],
+        "lastUpdate": "2026-01-09T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/FHENIXStateManager.sol",
+        "size": 6200,
+        "gasEstimate": 620000,
+        "interfaces": ["IFHENIXState"],
+        "functions": [
+          {
+            "name": "encryptState",
+            "signature": "encryptState(bytes data) returns (bytes)",
+            "visibility": "external"
+          },
+          {
+            "name": "decryptState",
+            "signature": "decryptState(bytes encryptedData) returns (bytes)",
+            "visibility": "external"
+          },
+          {
+            "name": "computeOnEncrypted",
+            "signature": "computeOnEncrypted(bytes encryptedData, bytes operation) returns (bytes)",
+            "visibility": "external"
+          }
+        ],
+        "errors": ["EncryptionFailed", "DecryptionFailed", "InvalidOperation"]
+      },
+      "interactions": {
+        "dependencies": [],
+        "dependents": [],
+        "critical": []
+      },
+      "versions": [
+        {
+          "version": "0.9.0",
+          "releaseDate": "2026-01-09T00:00:00Z",
+          "status": "testing",
+          "description": "FHENIX state management in testing phase",
+          "changes": [
+            "Encrypted state storage",
+            "Computation on encrypted data",
+            "Key management"
+          ],
+          "breakingChanges": [],
+          "deploymentBlock": null
+        }
+      ]
+    },
+    {
+      "id": "fhenix_oracle",
+      "name": "FHENIXOracle",
+      "category": "FHENIX",
+      "description": "Privacy-preserving oracle using FHENIX encrypted computations",
+      "deployment": {
+        "address": "0x6789012345678901234567890123456789012345",
+        "block": null,
+        "network": "mainnet",
+        "timestamp": null,
+        "deployer": null
+      },
+      "state": {
+        "status": "testing",
+        "version": "0.8.0",
+        "owner": null,
+        "admin": null,
+        "balance": "0",
+        "variables": [],
+        "lastUpdate": "2026-01-09T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/FHENIXOracle.sol",
+        "size": 5500,
+        "gasEstimate": 550000,
+        "interfaces": ["IOracle", "IFHENIXOracle"],
+        "functions": [
+          {
+            "name": "getEncryptedPrice",
+            "signature": "getEncryptedPrice(address token) returns (bytes)",
+            "visibility": "external"
+          },
+          {
+            "name": "updatePriceEncrypted",
+            "signature": "updatePriceEncrypted(address token, bytes encryptedPrice)",
+            "visibility": "external"
+          }
+        ],
+        "errors": ["PriceNotAvailable", "EncryptionError"]
+      },
+      "interactions": {
+        "dependencies": [
+          {
+            "contractName": "FHENIXStateManager",
+            "functions": ["encryptState", "decryptState"]
+          }
+        ],
+        "dependents": [],
+        "critical": []
+      },
+      "versions": [
+        {
+          "version": "0.8.0",
+          "releaseDate": "2026-01-09T00:00:00Z",
+          "status": "testing",
+          "description": "Privacy-preserving oracle in testing",
+          "changes": [
+            "Encrypted price feeds",
+            "Privacy-preserving computations",
+            "Multi-source aggregation"
+          ],
+          "breakingChanges": [],
+          "deploymentBlock": null
+        }
+      ]
+    },
+    {
+      "id": "fhenix_vault",
+      "name": "FHENIXVault",
+      "category": "FHENIX",
+      "description": "Encrypted vault with privacy-preserving yield strategies",
+      "deployment": {
+        "address": "0x7890123456789012345678901234567890123456",
+        "block": null,
+        "network": "mainnet",
+        "timestamp": null,
+        "deployer": null
+      },
+      "state": {
+        "status": "in-development",
+        "version": "0.7.0",
+        "owner": null,
+        "admin": null,
+        "balance": "0",
+        "variables": [],
+        "lastUpdate": "2026-01-09T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/FHENIXVault.sol",
+        "size": 7200,
+        "gasEstimate": 720000,
+        "interfaces": ["IERC4626", "IFHENIXVault"],
+        "functions": [
+          {
+            "name": "depositEncrypted",
+            "signature": "depositEncrypted(bytes encryptedAmount) returns (uint256)",
+            "visibility": "external"
+          },
+          {
+            "name": "withdrawEncrypted",
+            "signature": "withdrawEncrypted(bytes encryptedAmount) returns (uint256)",
+            "visibility": "external"
+          },
+          {
+            "name": "getEncryptedBalance",
+            "signature": "getEncryptedBalance(address user) returns (bytes)",
+            "visibility": "external"
+          }
+        ],
+        "errors": ["InsufficientEncryptedBalance", "EncryptionFailed"]
+      },
+      "interactions": {
+        "dependencies": [
+          {
+            "contractName": "FHENIXStateManager",
+            "functions": ["encryptState", "computeOnEncrypted"]
+          },
+          {
+            "contractName": "FHENIXOracle",
+            "functions": ["getEncryptedPrice"]
+          }
+        ],
+        "dependents": [],
+        "critical": []
+      },
+      "versions": [
+        {
+          "version": "0.7.0",
+          "releaseDate": "2026-01-09T00:00:00Z",
+          "status": "in-development",
+          "description": "FHENIX vault in development",
+          "changes": [
+            "Encrypted deposits and withdrawals",
+            "Privacy-preserving yield strategies",
+            "Encrypted balance tracking"
+          ],
+          "breakingChanges": [],
+          "deploymentBlock": null
+        }
+      ]
+    }
+  ]
+}

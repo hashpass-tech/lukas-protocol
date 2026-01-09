@@ -1,4 +1,5 @@
 import React from 'react';
+import Script from 'next/script';
 
 interface HtmlLayoutProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ export function HtmlLayout({
   bodyClassName = "font-mono antialiased" 
 }: HtmlLayoutProps) {
   return (
-    <html lang={lang} className={className} suppressHydrationWarning>
+    <html lang={lang} className={`dark ${className}`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -28,6 +29,16 @@ export function HtmlLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="icon" href="/favicon.ico" />
+        <Script
+          id="theme-script"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.documentElement.classList.add('dark');
+              localStorage.setItem('theme', 'dark');
+            `,
+          }}
+        />
       </head>
       <body className={bodyClassName} suppressHydrationWarning>
         {children}
@@ -35,6 +46,3 @@ export function HtmlLayout({
     </html>
   );
 }
-// Test change for auto-commit
-// Another test change
-// Final test change

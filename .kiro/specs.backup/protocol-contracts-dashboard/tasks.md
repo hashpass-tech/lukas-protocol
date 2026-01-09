@@ -37,7 +37,7 @@ Implement a comprehensive Protocol Contracts Dashboard that displays all deploye
 
 ### Phase 2: Interactions & Dependencies
 
-- [x] 4. Create contract interaction mapping
+- [ ] 4. Create contract interaction mapping
   - Map all contract dependencies
   - Map all contract dependents
   - Document function call relationships
@@ -45,7 +45,7 @@ Implement a comprehensive Protocol Contracts Dashboard that displays all deploye
   - Create interaction data structure
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
-- [x] 5. Create interaction visualization
+- [ ] 5. Create interaction visualization
   - Create D3.js dependency graph component
   - Create interaction flow diagrams
   - Create interaction matrices
@@ -55,7 +55,7 @@ Implement a comprehensive Protocol Contracts Dashboard that displays all deploye
 
 ### Phase 3: Version History & Changelog
 
-- [x] 6. Create version history documentation
+- [ ] 6. Create version history documentation
   - Document version history for each contract
   - Create changelog for each version
   - Document deployment history
@@ -63,7 +63,7 @@ Implement a comprehensive Protocol Contracts Dashboard that displays all deploye
   - Document breaking changes
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [x] 7. Create version comparison tool
+- [ ] 7. Create version comparison tool
   - Compare versions side-by-side
   - Highlight changes between versions
   - Show upgrade paths

@@ -11,9 +11,10 @@ export function Providers({ children }: { children: any }) {
         <ThemeProvider 
             attribute="class" 
             defaultTheme="dark" 
-            enableSystem={false} 
+            enableSystem={false}
             storageKey="theme"
             disableTransitionOnChange
+            forcedTheme="dark"
         >
             {/* <AlchemyProvider> */}
                 <WalletProvider>

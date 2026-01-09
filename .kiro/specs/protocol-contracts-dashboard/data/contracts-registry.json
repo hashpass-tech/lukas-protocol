@@ -1,0 +1,549 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2026-01-08T00:00:00Z",
+  "contracts": [
+    {
+      "id": "stabilizer_vault",
+      "name": "StabilizerVault",
+      "category": "Vault",
+      "description": "Main vault contract managing stabilization operations and parameter updates",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "mainnet",
+        "timestamp": "2025-12-01T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "admin": "0x...",
+        "balance": "0",
+        "variables": [
+          {
+            "name": "totalAssets",
+            "type": "uint256",
+            "value": "0",
+            "description": "Total assets in vault",
+            "visibility": "public"
+          },
+          {
+            "name": "stabilizationFee",
+            "type": "uint256",
+            "value": "0",
+            "description": "Current stabilization fee",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/StabilizerVault.sol",
+        "size": 5000,
+        "gasEstimate": 500000,
+        "interfaces": ["IStabilizerVault"],
+        "functions": [
+          {
+            "name": "deposit",
+            "signature": "deposit(uint256 assets, address receiver)",
+            "visibility": "external",
+            "stateMutability": "nonpayable",
+            "description": "Deposit assets into vault"
+          },
+          {
+            "name": "withdraw",
+            "signature": "withdraw(uint256 assets, address receiver, address owner)",
+            "visibility": "external",
+            "stateMutability": "nonpayable",
+            "description": "Withdraw assets from vault"
+          }
+        ],
+        "errors": ["InsufficientBalance", "InvalidAmount", "Unauthorized"]
+      },
+      "interactions": {
+        "dependencies": ["minimal_pool_manager", "price_feed"],
+        "dependents": ["uniswap_v4_hook"],
+        "calls": [
+          {
+            "from": "stabilizer_vault",
+            "to": "minimal_pool_manager",
+            "function": "getPoolState",
+            "description": "Get current pool state"
+          }
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2025-12-01T00:00:00Z",
+          "changes": ["Initial deployment"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/stabilizer-vault",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/StabilizerVault.sol",
+        "blockExplorer": "https://etherscan.io/address/0x...",
+        "web3Settings": "https://app.example.com/settings?contract=stabilizer_vault"
+      }
+    },
+    {
+      "id": "minimal_pool_manager",
+      "name": "MinimalPoolManager",
+      "category": "Protocol",
+      "description": "Manages Uniswap V4 pool operations and state",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "mainnet",
+        "timestamp": "2025-12-01T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "variables": [
+          {
+            "name": "poolCount",
+            "type": "uint256",
+            "value": "0",
+            "description": "Number of managed pools",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/MinimalPoolManager.sol",
+        "size": 4000,
+        "gasEstimate": 400000,
+        "interfaces": [],
+        "functions": [
+          {
+            "name": "createPool",
+            "signature": "createPool(address token0, address token1, uint24 fee)",
+            "visibility": "external",
+            "stateMutability": "nonpayable",
+            "description": "Create new pool"
+          }
+        ],
+        "errors": ["PoolExists", "InvalidTokens"]
+      },
+      "interactions": {
+        "dependencies": [],
+        "dependents": ["stabilizer_vault"],
+        "calls": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2025-12-01T00:00:00Z",
+          "changes": ["Initial deployment"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/pool-manager",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/MinimalPoolManager.sol",
+        "blockExplorer": "https://etherscan.io/address/0x..."
+      }
+    },
+    {
+      "id": "fhenix_encryption_manager",
+      "name": "FhenixEncryptionManager",
+      "category": "FHENIX",
+      "description": "Manages encryption keys and lifecycle for FHENIX infrastructure",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "amoy",
+        "timestamp": "2026-01-08T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "variables": [
+          {
+            "name": "encryptionLevel",
+            "type": "uint256",
+            "value": "192",
+            "description": "Current encryption level in bits",
+            "visibility": "public"
+          },
+          {
+            "name": "isEncryptionActive",
+            "type": "bool",
+            "value": "true",
+            "description": "Whether encryption is active",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/fhenix/core/FhenixEncryptionManager.sol",
+        "size": 3000,
+        "gasEstimate": 500000,
+        "interfaces": ["IFhenixEncryptionManager"],
+        "functions": [
+          {
+            "name": "initializeEncryption",
+            "signature": "initializeEncryption(bytes publicKey, uint256 level)",
+            "visibility": "external",
+            "stateMutability": "nonpayable",
+            "description": "Initialize encryption with public key and level"
+          }
+        ],
+        "errors": ["AlreadyInitialized", "InvalidLevel"]
+      },
+      "interactions": {
+        "dependencies": [],
+        "dependents": ["fhenix_mint_ceiling", "fhenix_peg_deviation", "fhenix_curve_parameters", "fhenix_decryption_handler"],
+        "calls": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-01-08T00:00:00Z",
+          "changes": ["Initial deployment to Amoy"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/fhenix-encryption",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/fhenix/core/FhenixEncryptionManager.sol",
+        "blockExplorer": "https://amoy.polygonscan.com/address/0x..."
+      }
+    },
+    {
+      "id": "fhenix_mint_ceiling",
+      "name": "EncryptedMintCeiling",
+      "category": "FHENIX",
+      "description": "Manages encrypted mint ceiling parameter",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "amoy",
+        "timestamp": "2026-01-08T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "variables": [
+          {
+            "name": "encryptedCeiling",
+            "type": "bytes",
+            "value": "0x...",
+            "description": "Encrypted mint ceiling value",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/fhenix/core/EncryptedMintCeiling.sol",
+        "size": 2500,
+        "gasEstimate": 400000,
+        "interfaces": ["IEncryptedMintCeiling"],
+        "functions": [],
+        "errors": []
+      },
+      "interactions": {
+        "dependencies": ["fhenix_encryption_manager"],
+        "dependents": ["fhenix_orchestrator"],
+        "calls": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-01-08T00:00:00Z",
+          "changes": ["Initial deployment to Amoy"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/fhenix-mint-ceiling",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/fhenix/core/EncryptedMintCeiling.sol",
+        "blockExplorer": "https://amoy.polygonscan.com/address/0x..."
+      }
+    },
+    {
+      "id": "fhenix_peg_deviation",
+      "name": "EncryptedPegDeviation",
+      "category": "FHENIX",
+      "description": "Manages encrypted peg deviation sensitivity parameter",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "amoy",
+        "timestamp": "2026-01-08T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "variables": [
+          {
+            "name": "encryptedDeviation",
+            "type": "bytes",
+            "value": "0x...",
+            "description": "Encrypted peg deviation value",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/fhenix/core/EncryptedPegDeviation.sol",
+        "size": 2500,
+        "gasEstimate": 400000,
+        "interfaces": ["IEncryptedPegDeviation"],
+        "functions": [],
+        "errors": []
+      },
+      "interactions": {
+        "dependencies": ["fhenix_encryption_manager"],
+        "dependents": ["fhenix_orchestrator"],
+        "calls": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-01-08T00:00:00Z",
+          "changes": ["Initial deployment to Amoy"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/fhenix-peg-deviation",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/fhenix/core/EncryptedPegDeviation.sol",
+        "blockExplorer": "https://amoy.polygonscan.com/address/0x..."
+      }
+    },
+    {
+      "id": "fhenix_curve_parameters",
+      "name": "EncryptedCurveParameters",
+      "category": "FHENIX",
+      "description": "Manages encrypted stabilization curve parameters",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "amoy",
+        "timestamp": "2026-01-08T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "variables": [
+          {
+            "name": "encryptedParameters",
+            "type": "bytes",
+            "value": "0x...",
+            "description": "Encrypted curve parameters",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/fhenix/core/EncryptedCurveParameters.sol",
+        "size": 3000,
+        "gasEstimate": 450000,
+        "interfaces": ["IEncryptedCurveParameters"],
+        "functions": [],
+        "errors": []
+      },
+      "interactions": {
+        "dependencies": ["fhenix_encryption_manager"],
+        "dependents": ["fhenix_orchestrator"],
+        "calls": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-01-08T00:00:00Z",
+          "changes": ["Initial deployment to Amoy"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/fhenix-curve-parameters",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/fhenix/core/EncryptedCurveParameters.sol",
+        "blockExplorer": "https://amoy.polygonscan.com/address/0x..."
+      }
+    },
+    {
+      "id": "fhenix_computation_engine",
+      "name": "FhenixComputationEngine",
+      "category": "FHENIX",
+      "description": "Performs homomorphic operations on encrypted data",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "amoy",
+        "timestamp": "2026-01-08T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "variables": [],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/fhenix/core/FhenixComputationEngine.sol",
+        "size": 2500,
+        "gasEstimate": 350000,
+        "interfaces": ["IFhenixComputationEngine"],
+        "functions": [],
+        "errors": []
+      },
+      "interactions": {
+        "dependencies": [],
+        "dependents": ["fhenix_orchestrator"],
+        "calls": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-01-08T00:00:00Z",
+          "changes": ["Initial deployment to Amoy"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/fhenix-computation",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/fhenix/core/FhenixComputationEngine.sol",
+        "blockExplorer": "https://amoy.polygonscan.com/address/0x..."
+      }
+    },
+    {
+      "id": "fhenix_decryption_handler",
+      "name": "FhenixDecryptionHandler",
+      "category": "FHENIX",
+      "description": "Manages decryption operations with authorization",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "amoy",
+        "timestamp": "2026-01-08T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "variables": [],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/fhenix/core/FhenixDecryptionHandler.sol",
+        "size": 3500,
+        "gasEstimate": 450000,
+        "interfaces": ["IFhenixDecryptionHandler"],
+        "functions": [],
+        "errors": []
+      },
+      "interactions": {
+        "dependencies": ["fhenix_encryption_manager"],
+        "dependents": ["fhenix_orchestrator"],
+        "calls": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-01-08T00:00:00Z",
+          "changes": ["Initial deployment to Amoy"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/fhenix-decryption",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/fhenix/core/FhenixDecryptionHandler.sol",
+        "blockExplorer": "https://amoy.polygonscan.com/address/0x..."
+      }
+    },
+    {
+      "id": "fhenix_orchestrator",
+      "name": "EncryptionOrchestrator",
+      "category": "FHENIX",
+      "description": "Coordinates encrypted parameter modules",
+      "deployment": {
+        "address": "0x...",
+        "block": 0,
+        "network": "amoy",
+        "timestamp": "2026-01-08T00:00:00Z",
+        "deployer": "0x..."
+      },
+      "state": {
+        "status": "active",
+        "version": "1.0.0",
+        "owner": "0x...",
+        "variables": [
+          {
+            "name": "encryptedPathEnabled",
+            "type": "bool",
+            "value": "false",
+            "description": "Whether encrypted path is enabled",
+            "visibility": "public"
+          }
+        ],
+        "lastUpdate": "2026-01-08T00:00:00Z"
+      },
+      "technical": {
+        "sourceCode": "packages/contracts/src/fhenix/orchestration/EncryptionOrchestrator.sol",
+        "size": 4000,
+        "gasEstimate": 600000,
+        "interfaces": [],
+        "functions": [],
+        "errors": []
+      },
+      "interactions": {
+        "dependencies": ["fhenix_encryption_manager", "fhenix_mint_ceiling", "fhenix_peg_deviation", "fhenix_curve_parameters", "fhenix_computation_engine", "fhenix_decryption_handler"],
+        "dependents": [],
+        "calls": []
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-01-08T00:00:00Z",
+          "changes": ["Initial deployment to Amoy"],
+          "breaking": false
+        }
+      ],
+      "links": {
+        "documentation": "https://docs.example.com/fhenix-orchestrator",
+        "sourceCode": "https://github.com/example/repo/blob/main/packages/contracts/src/fhenix/orchestration/EncryptionOrchestrator.sol",
+        "blockExplorer": "https://amoy.polygonscan.com/address/0x..."
+      }
+    }
+  ],
+  "metadata": {
+    "totalContracts": 9,
+    "byCategory": {
+      "Protocol": 1,
+      "Vault": 1,
+      "FHENIX": 7
+    },
+    "byNetwork": {
+      "mainnet": 2,
+      "amoy": 7
+    },
+    "byStatus": {
+      "active": 9,
+      "deprecated": 0,
+      "testing": 0,
+      "archived": 0
+    }
+  }
+}
