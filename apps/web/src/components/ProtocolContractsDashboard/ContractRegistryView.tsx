@@ -76,7 +76,7 @@ export default function ContractRegistryView({
     <div className="space-y-8">
       {Object.entries(groupedContracts).map(([category, categoryContracts]) => (
         <div key={category}>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
             <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded" />
             {category}
           </h2>

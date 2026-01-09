@@ -4,7 +4,7 @@ import React, { type ReactNode } from 'react';
 import { wagmiAdapter, projectId } from '@/config';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createAppKit } from '@reown/appkit/react';
-import { mainnet, arbitrum } from '@reown/appkit/networks';
+import { polygon, sepolia } from '@reown/appkit/networks';
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi';
 
 // Set up query client
@@ -26,8 +26,8 @@ const metadata = {
 const modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [mainnet, arbitrum],
-  defaultNetwork: mainnet,
+  networks: [polygon, sepolia],
+  defaultNetwork: polygon,
   metadata,
   features: {
     analytics: true,

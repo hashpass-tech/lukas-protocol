@@ -76,7 +76,7 @@ export default function RoadmapSection() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
           <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded" />
           Roadmap
         </h2>
@@ -98,7 +98,7 @@ export default function RoadmapSection() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-blue-300 mb-1">
+                  <h3 className="text-lg font-bold text-foreground mb-1">
                     {item.name}
                   </h3>
                   <p className="text-sm text-muted-foreground">

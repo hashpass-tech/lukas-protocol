@@ -15,6 +15,7 @@ import DashboardHeader from './DashboardHeader';
 import DashboardStats from './DashboardStats';
 import RoadmapSection from './RoadmapSection';
 import ArchitectureVisualization from './ArchitectureVisualization';
+import { SUPPORTED_NETWORKS, getContractsByNetwork } from '@/data/deployedContracts';
 import { Zap, Network, Target } from 'lucide-react';
 
 interface ProtocolContractsDashboardProps {
@@ -34,12 +35,22 @@ export default function ProtocolContractsDashboard({
   const [viewMode, setViewMode] = useState<'registry' | 'detail'>('registry');
   const [layoutView, setLayoutView] = useState<'grid' | 'list' | 'compact'>('grid');
   const [mainTab, setMainTab] = useState<MainTab>('contracts');
+  const [selectedNetwork, setSelectedNetwork] = useState<string>('amoy');
+
+  // Get contracts for selected network
+  const networkContracts = useMemo(() => {
+    const contracts = getContractsByNetwork(selectedNetwork);
+    return contracts.length > 0 ? { contracts } : { contracts: [] };
+  }, [selectedNetwork]);
+
+  // Use network-specific contracts or fallback to provided data
+  const activeContractsData = networkContracts.contracts.length > 0 ? networkContracts : contractsData;
 
   // Filter contracts based on search and category
   const filteredContracts = useMemo(() => {
-    if (!contractsData?.contracts) return [];
+    if (!activeContractsData?.contracts) return [];
 
-    return contractsData.contracts.filter((contract) => {
+    return activeContractsData.contracts.filter((contract) => {
       const matchesSearch =
         contract.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         contract.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -49,11 +60,11 @@ export default function ProtocolContractsDashboard({
 
       return matchesSearch && matchesCategory;
     });
-  }, [contractsData?.contracts, searchQuery, selectedCategory]);
+  }, [activeContractsData?.contracts, searchQuery, selectedCategory]);
 
   const selectedContract = useMemo(
-    () => contractsData?.contracts.find((c) => c.id === selectedContractId),
-    [contractsData?.contracts, selectedContractId]
+    () => activeContractsData?.contracts.find((c) => c.id === selectedContractId),
+    [activeContractsData?.contracts, selectedContractId]
   );
 
   const handleSelectContract = (contractId: string) => {
@@ -74,8 +85,8 @@ export default function ProtocolContractsDashboard({
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
         categories={
-          contractsData?.contracts
-            ? Array.from(new Set(contractsData.contracts.map((c) => c.category)))
+          activeContractsData?.contracts
+            ? Array.from(new Set(activeContractsData.contracts.map((c) => c.category)))
             : []
         }
         layoutView={layoutView}
@@ -84,7 +95,32 @@ export default function ProtocolContractsDashboard({
       />
 
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-6 sm:mt-8">
-        <DashboardStats contracts={contractsData?.contracts || []} />
+        <DashboardStats contracts={activeContractsData?.contracts || []} />
+
+        {/* Network Switcher */}
+        {mainTab === 'contracts' && (
+          <div className="mt-6 flex flex-wrap gap-2">
+            {SUPPORTED_NETWORKS.map((network) => (
+              <button
+                key={network.id}
+                onClick={() => {
+                  setSelectedNetwork(network.id);
+                  setSelectedContractId(null);
+                  setViewMode('registry');
+                }}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  selectedNetwork === network.id
+                    ? 'bg-primary text-primary-foreground shadow-lg'
+                    : 'bg-card border border-border text-foreground hover:border-primary'
+                }`}
+                title={`Switch to ${network.name}`}
+              >
+                <span className="mr-2">{network.icon}</span>
+                {network.name}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Main Tabs */}
         <div className="mt-8 border-b border-border">
@@ -117,12 +153,19 @@ export default function ProtocolContractsDashboard({
         {/* Tab Content */}
         <div className="mt-8">
           {mainTab === 'contracts' && viewMode === 'registry' ? (
-            <ContractRegistryView
-              contracts={filteredContracts}
-              onSelectContract={handleSelectContract}
-              isLoading={!contractsData}
-              layoutView={layoutView}
-            />
+            filteredContracts.length > 0 ? (
+              <ContractRegistryView
+                contracts={filteredContracts}
+                onSelectContract={handleSelectContract}
+                isLoading={!activeContractsData}
+                layoutView={layoutView}
+              />
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground mb-2">No contracts deployed on {SUPPORTED_NETWORKS.find(n => n.id === selectedNetwork)?.name}</p>
+                <p className="text-sm text-muted-foreground">Contracts are currently only deployed on Polygon Amoy and Sepolia Testnet</p>
+              </div>
+            )
           ) : mainTab === 'contracts' && selectedContract ? (
             <ContractDetailView
               contract={selectedContract}
@@ -130,7 +173,7 @@ export default function ProtocolContractsDashboard({
               onOpenWeb3Settings={onOpenWeb3Settings}
             />
           ) : mainTab === 'architecture' ? (
-            <ArchitectureVisualization contracts={contractsData?.contracts || []} />
+            <ArchitectureVisualization contracts={activeContractsData?.contracts || []} />
           ) : mainTab === 'roadmap' ? (
             <RoadmapSection />
           ) : null}

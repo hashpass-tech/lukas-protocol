@@ -1,6 +1,6 @@
 import { cookieStorage, createStorage } from '@wagmi/core';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
-import { mainnet, arbitrum } from '@reown/appkit/networks';
+import { polygon, sepolia } from '@reown/appkit/networks';
 
 // Prefer the WalletConnect-specific env, fall back to a generic one if present
 export const projectId =
@@ -10,7 +10,7 @@ if (!projectId) {
   throw new Error('Project ID is not defined');
 }
 
-export const networks = [mainnet, arbitrum];
+export const networks = [polygon, sepolia];
 
 // Set up the Wagmi Adapter (Config)
 export const wagmiAdapter = new WagmiAdapter({

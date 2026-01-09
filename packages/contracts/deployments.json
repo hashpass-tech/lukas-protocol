@@ -17,12 +17,13 @@
             "note": "CORRECT address - has ERC20 interface and 1M initial supply"
           },
           "StabilizerVault": {
-            "address": "0x5c5bc89db3f3e3e3e3e3e3e3e3e3e3e3e3e3e3e3",
-            "deployedAt": "2025-12-17T20:23:32.684Z",
-            "deployer": "0x4f36dc378d1c78181b3f544a81e8951fb4838ad9",
+            "address": null,
+            "deployedAt": null,
+            "deployer": null,
             "version": "1.0.0",
             "verified": false,
-            "status": "stable"
+            "status": "not-deployed",
+            "note": "Planned for Phase 2 deployment"
           },
           "LatAmBasketIndex": {
             "address": "0x1Dccf1fB82946a293E03036e85edc2139cba1541",

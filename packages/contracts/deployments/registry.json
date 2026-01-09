@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-09T11:36:55.877Z",
+  "networks": {
+    "amoy": {
+      "chainId": 80002,
+      "name": "Polygon Amoy Testnet",
+      "rpcUrl": "https://rpc-amoy.polygon.technology",
+      "blockExplorer": "https://amoy.polygonscan.com",
+      "deployments": [
+        {
+          "id": "fhenix-phase1-minimal-v1",
+          "version": "0.2.42",
+          "timestamp": "2026-01-09T11:32:02.539Z",
+          "deployer": "0x4F36DC378d1C78181B3F544a81E8951fb4838ad9",
+          "contracts": [
+            {
+              "name": "FhenixEncryptionManager",
+              "address": "0xcafe3cfad5f4dd86dec1ad25b48382b3fa44cb97",
+              "deploymentTx": "0x29e6b1a8aa26b2a5cbcca865ac073796b77aae5e75fc9c12a89eaa075d07b038",
+              "blockNumber": 32003759,
+              "gasUsed": 1374429,
+              "status": "deployed",
+              "verified": false
+            }
+          ],
+          "status": "active",
+          "notes": "Minimal deployment - core encryption manager only"
+        }
+      ]
+    }
+  },
+  "phases": {
+    "phase1": {
+      "name": "FHENIX Phase 1 - Encryption Infrastructure",
+      "status": "in-progress",
+      "targetContracts": 7,
+      "deployedContracts": 1,
+      "completionPercentage": 14,
+      "contracts": {
+        "FhenixEncryptionManager": {
+          "status": "deployed",
+          "address": "0xcafe3cfad5f4dd86dec1ad25b48382b3fa44cb97",
+          "network": "amoy",
+          "version": "0.2.42"
+        },
+        "EncryptedMintCeiling": {
+          "status": "pending",
+          "address": null,
+          "network": "amoy",
+          "version": "0.2.42"
+        },
+        "EncryptedPegDeviation": {
+          "status": "pending",
+          "address": null,
+          "network": "amoy",
+          "version": "0.2.42"
+        },
+        "EncryptedCurveParameters": {
+          "status": "pending",
+          "address": null,
+          "network": "amoy",
+          "version": "0.2.42"
+        },
+        "FhenixComputationEngine": {
+          "status": "pending",
+          "address": null,
+          "network": "amoy",
+          "version": "0.2.42"
+        },
+        "FhenixDecryptionHandler": {
+          "status": "pending",
+          "address": null,
+          "network": "amoy",
+          "version": "0.2.42"
+        },
+        "EncryptionOrchestrator": {
+          "status": "pending",
+          "address": null,
+          "network": "amoy",
+          "version": "0.2.42"
+        }
+      }
+    }
+  }
+}
