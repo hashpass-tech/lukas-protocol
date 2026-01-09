@@ -1,0 +1,22 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit security and lint checks..."
+
+# Run security scan
+echo "🔐 Scanning for security vulnerabilities..."
+node scripts/security-scan.js
+if [ $? -ne 0 ]; then
+  echo "❌ Security scan failed. Commit aborted."
+  exit 1
+fi
+
+# Run lint-staged
+echo "📝 Running linting on staged files..."
+npx lint-staged
+if [ $? -ne 0 ]; then
+  echo "❌ Linting failed. Commit aborted."
+  exit 1
+fi
+
+echo "✅ All checks passed!"
