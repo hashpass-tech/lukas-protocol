@@ -24,6 +24,7 @@ out
 .archive
 
 # Sensitive Files - NEVER COMMIT
+.env
 .env.local
 .env.*.local
 .env.production.local
@@ -100,3 +101,41 @@ pids/
 # Misc
 .turbo/
 .env.*.local
+
+#flasbots
+package/flasbots-ens-rescue-master/*
+
+
+# Sensitive ENS Rescue Documentation and Scripts
+# These contain private keys, wallet addresses, and rescue strategies
+packages/flashbots-ens-rescue-master/
+scripts/*rescue*.js
+scripts/*flashbots*.js
+scripts/*delegation*.js
+scripts/*exploit*.js
+scripts/test-specific-rpcs.js
+
+# Temporary analysis and execution files
+*ANALYSIS*.md
+*RESCUE*.md
+*FLASHBOTS*.md
+*DELEGATION*.md
+*EXPLOIT*.md
+*PREFUND*.md
+*REVOKE*.md
+EXECUTION_RESULTS.md
+TESTNET_RESULTS.md
+RPC_TEST_RESULTS.md
+
+# Sensitive data files
+*.json.backup
+*_analysis_*.json
+*_report.json
+delegation_*.json
+owner_*.json
+selector_*.json
+etherscan_*.json
+
+# Deployment logs
+deployment_*.log
+deployment_*.txt

@@ -8,9 +8,14 @@ import { DownloadModal } from '@/components/DownloadModal';
 interface DownloadButtonProps {
   label?: string;
   i18nKey?: string;
+  variant?: 'full' | 'icon-only';
 }
 
-export const DownloadButton = ({ label = 'Download', i18nKey = 'download.button' }: DownloadButtonProps) => {
+export const DownloadButton = ({ 
+  label = 'Resources', 
+  i18nKey = 'resources.button',
+  variant = 'full'
+}: DownloadButtonProps) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +36,11 @@ export const DownloadButton = ({ label = 'Download', i18nKey = 'download.button'
     setIsDownloading(false);
   };
 
+  // Determine if we should show text based on variant and screen size
+  const showText = variant === 'full';
+  const buttonWidth = isDownloading ? 34 : (showText ? 130 : 34);
+  const minWidth = isDownloading ? '34px' : (showText ? '130px' : '34px');
+
   return (
     <>
       <motion.button
@@ -47,7 +57,7 @@ export const DownloadButton = ({ label = 'Download', i18nKey = 'download.button'
           shadow-md hover:shadow-lg hover:shadow-emerald-500/25 dark:hover:shadow-emerald-400/20
           transition-shadow duration-300`}
         animate={{
-          width: isDownloading ? 34 : 130,
+          width: buttonWidth,
           scale: isHovered && !isDownloading ? 1.02 : 1,
         }}
         transition={{ 
@@ -55,7 +65,7 @@ export const DownloadButton = ({ label = 'Download', i18nKey = 'download.button'
           ease: [0.4, 0, 0.2, 1],
           scale: { duration: 0.2 }
         }}
-        style={{ minWidth: isDownloading ? '34px' : '130px', height: 34 }}
+        style={{ minWidth, height: 34 }}
       >
         {/* Shimmer effect on hover */}
         <motion.div
@@ -94,7 +104,7 @@ export const DownloadButton = ({ label = 'Download', i18nKey = 'download.button'
 
         {/* Circular button with icon */}
         <motion.div
-          className="h-8 w-8 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-sm flex justify-center items-center relative z-10 flex-shrink-0 ml-px"
+          className={`h-8 w-8 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-sm flex justify-center items-center relative z-10 flex-shrink-0 ${showText ? 'ml-px' : 'mx-auto'}`}
           animate={isDownloading ? {
             rotate: 360,
           } : {
@@ -150,7 +160,7 @@ export const DownloadButton = ({ label = 'Download', i18nKey = 'download.button'
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M12 4v12m0 0l-4-4m4 4l4-4M4 18h16"
+              d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
             />
           </motion.svg>
 
@@ -176,9 +186,9 @@ export const DownloadButton = ({ label = 'Download', i18nKey = 'download.button'
           </motion.svg>
         </motion.div>
 
-        {/* Download label */}
+        {/* Download label - only show when showText is true */}
         <AnimatePresence mode="wait">
-          {!isDownloading && (
+          {!isDownloading && showText && (
             <motion.span
               className="ml-1.5 pr-3 text-white text-sm font-medium select-none z-10 whitespace-nowrap drop-shadow-sm"
               initial={{ opacity: 0, x: -10 }}
