@@ -36,11 +36,11 @@ const ethers = require('ethers');
     }
 
     const url = `https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${owner}&apikey=${ETHERSCAN_KEY}`;
-    console.log('Querying Etherscan:', url.replace(/apikey=.*$/,'apikey=***'));
+    console.log('Querying Etherscan for contract source...');
     const resp = await fetch(url);
     const j = await resp.json();
     if(!j || !j.result || j.status === '0'){
-      console.error('Etherscan query failed or no source. response:', JSON.stringify(j).slice(0,400));
+      console.error('Etherscan query failed or no source.');
       process.exit(0);
     }
     const result = j.result[0];
